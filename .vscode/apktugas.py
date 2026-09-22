@@ -5,7 +5,8 @@ while True:
     print("1. Tambah Tugas")
     print("2. Lihat Tugas")
     print("3. Hapus Tugas")
-    print("4. Keluar")
+    print("4. Edit Tugas")
+    print("5. Keluar")
 
     pilihan = input("pilih menu (1/2/3/4):").strip()
 #Pengguna memasukkan tugas
@@ -32,10 +33,18 @@ while True:
             print("tugas berhasil dihapus:", hapus_nomor)
         else:
             print("nomor tugas tidak valid")
-#Pengguna keluar dari program
+#Pengguna mengedit tugas
     elif pilihan == "4":
+        edit_nomor = int(input("masukkan nomor tugas yang ingin diedit: ").strip())
+        index = edit_nomor - 1
+        nama_baru = input("masukkan nama tugas baru: ").strip()
+        tugas[index] = nama_baru
+        print("tugas berhasil diedit:", edit_nomor)
+#Pengguna keluar dari program
+    elif pilihan == "5":
         break
     else:
         print("pilihan tidak tersedia")
+
     
 
