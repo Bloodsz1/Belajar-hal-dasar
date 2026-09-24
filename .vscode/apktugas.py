@@ -12,7 +12,11 @@ while True:
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("masukkan nama tugas: ").strip()
-        tugas.append(nama_tugas)
+        data_tugas = {
+            "nama": nama_tugas,
+            "status": "belum"
+                      }
+        tugas.append(data_tugas)
         print("tugas berhasil ditambahkan:", nama_tugas)
 #Pengguna melihat daftar tugas
     elif pilihan == "2":
@@ -22,7 +26,7 @@ while True:
             print("daftar tugas:")
             nomor = 1
             for item in tugas:
-                print(nomor,item)
+                print(nomor,item["nama"],"-",item["status"])
                 nomor += 1
 #Pengguna menghapus tugas
     elif pilihan == "3":
