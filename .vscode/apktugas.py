@@ -42,7 +42,7 @@ while True:
         edit_nomor = int(input("masukkan nomor tugas yang ingin diedit: ").strip())
         index = edit_nomor - 1
         nama_baru = input("masukkan nama tugas baru: ").strip()
-        tugas[index] = nama_baru
+        tugas[index]["nama"] = nama_baru
         print("tugas berhasil diedit:", edit_nomor)
 #Pengguna keluar dari program
     elif pilihan == "5":
