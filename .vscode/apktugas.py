@@ -7,9 +7,10 @@ while True:
     print("3. Hapus Tugas")
     print("4. Edit Tugas")
     print("5. Tandai Selesai")
-    print("6. Keluar")
+    print("6. Cari Tugas")
+    print("7. Keluar")
 
-    pilihan = input("pilih menu (1/2/3/4/5/6):").strip()
+    pilihan = input("pilih menu (1/2/3/4/5/6/7):").strip()
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("masukkan nama tugas: ").strip()
@@ -51,8 +52,18 @@ while True:
         index = selesai_nomor - 1
         tugas[index]["status"] = "selesai"
         print("tugas berhasil ditandai sebagai selesai:", selesai_nomor)
-#Pengguna keluar dari program
+#Pengguna mencari tugas
     elif pilihan == "6":
+        keyword = input("masukkan keyword tugas yang ingin dicari: ").strip()
+        ditemukan = False
+        for item in tugas:
+            if keyword.lower() in item["nama"].lower():
+                print(item["nama"], "-", item["status"])
+                ditemukan = True
+        if not ditemukan:
+            print("tugas tidak ditemukan")
+#Pengguna keluar dari program
+    elif pilihan == "7":
         break
     else:
         print("pilihan tidak tersedia")
