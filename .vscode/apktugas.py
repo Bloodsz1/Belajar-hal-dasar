@@ -32,26 +32,35 @@ while True:
                 nomor += 1
 #Pengguna menghapus tugas
     elif pilihan == "3":
-        hapus_nomor = int(input("masukkan nomor tugas yang ingin dihapus: ").strip())
-        if hapus_nomor <= len(tugas):
-            index = hapus_nomor - 1
-            del tugas[index]
-            print("tugas berhasil dihapus:", hapus_nomor)
-        else:
-            print("nomor tugas tidak valid")
+        try:
+            hapus_nomor = int(input("masukkan nomor tugas yang ingin dihapus: ").strip())
+            if hapus_nomor <= len(tugas):
+                index = hapus_nomor - 1
+                del tugas[index]
+                print("tugas berhasil dihapus:", hapus_nomor)
+            else:
+                print("nomor tugas tidak valid")
+        except ValueError:
+            print("Input tidak valid. Harap masukkan nomor tugas yang benar.")
 #Pengguna mengedit tugas
     elif pilihan == "4":
-        edit_nomor = int(input("masukkan nomor tugas yang ingin diedit: ").strip())
-        index = edit_nomor - 1
-        nama_baru = input("masukkan nama tugas baru: ").strip()
-        tugas[index]["nama"] = nama_baru
-        print("tugas berhasil diedit:", edit_nomor)
+        try:
+            edit_nomor = int(input("masukkan nomor tugas yang ingin diedit: ").strip())
+            index = edit_nomor - 1
+            nama_baru = input("masukkan nama tugas baru: ").strip()
+            tugas[index]["nama"] = nama_baru
+            print("tugas berhasil diedit:", edit_nomor)
+        except (IndexError, ValueError):
+            print("Tugas gagal diedit. Nomor tugas tidak valid.")
 #Pengguna menandai tugas sebagai selesai
     elif pilihan == "5":
-        selesai_nomor = int(input("masukkan nomor tugas yang telah selesai: ").strip())
-        index = selesai_nomor - 1
-        tugas[index]["status"] = "selesai"
-        print("tugas berhasil ditandai sebagai selesai:", selesai_nomor)
+        try:
+            selesai_nomor = int(input("masukkan nomor tugas yang telah selesai: ").strip())
+            index = selesai_nomor - 1
+            tugas[index]["status"] = "selesai"
+            print("tugas berhasil ditandai sebagai selesai:", selesai_nomor)
+        except (IndexError, ValueError):
+            print("Tugas gagal ditandai sebagai selesai. Nomor tugas tidak valid.")
 #Pengguna mencari tugas
     elif pilihan == "6":
         keyword = input("masukkan keyword tugas yang ingin dicari: ").strip()
@@ -67,6 +76,3 @@ while True:
         break
     else:
         print("pilihan tidak tersedia")
-
-    
-
