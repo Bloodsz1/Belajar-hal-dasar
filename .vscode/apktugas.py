@@ -34,22 +34,25 @@ while True:
     elif pilihan == "3":
         try:
             hapus_nomor = int(input("masukkan nomor tugas yang ingin dihapus: ").strip())
-            if hapus_nomor <= len(tugas):
+            if 1 <= hapus_nomor <= len(tugas):
                 index = hapus_nomor - 1
                 del tugas[index]
                 print("tugas berhasil dihapus:", hapus_nomor)
             else:
                 print("nomor tugas tidak valid")
-        except ValueError:
+        except (IndexError, ValueError):
             print("Input tidak valid. Harap masukkan nomor tugas yang benar.")
 #Pengguna mengedit tugas
     elif pilihan == "4":
         try:
             edit_nomor = int(input("masukkan nomor tugas yang ingin diedit: ").strip())
-            index = edit_nomor - 1
-            nama_baru = input("masukkan nama tugas baru: ").strip()
-            tugas[index]["nama"] = nama_baru
-            print("tugas berhasil diedit:", edit_nomor)
+            if 1 <= edit_nomor <= len(tugas):
+                index = edit_nomor - 1
+                nama_baru = input("masukkan nama tugas baru: ").strip()
+                tugas[index]["nama"] = nama_baru
+                print("tugas berhasil diedit:", edit_nomor)
+            else:
+                print("nomor tugas tidak valid")
         except (IndexError, ValueError):
             print("Tugas gagal diedit. Nomor tugas tidak valid.")
 #Pengguna menandai tugas sebagai selesai
