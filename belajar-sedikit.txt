@@ -1,0 +1,4 @@
+plan
+- Konsisten belajar dan praktek python setiap hari
+- Membesarkan praktek belajar saya 
+- Memahami setiap baris kode yang saya tulis
