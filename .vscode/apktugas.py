@@ -14,10 +14,25 @@ while True:
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
+        print("\nPilihan prioritas tugas:")
+        print("1. Tinggi")
+        print("2. Sedang")
+        print("3. Rendah")
+        prioritas_input = input("Masukkan prioritas tugas (1/2/3): ").strip()
+        if prioritas_input == "1":
+            prioritas = "tinggi"
+        elif prioritas_input == "2":
+            prioritas = "sedang"
+        elif prioritas_input == "3":
+            prioritas = "rendah"
+        else:
+            print("Input tidak valid. Tugas akan diberi prioritas 'sedang'.")
+            prioritas = "sedang"
         data_tugas = {
             "nama": nama_tugas,
-            "status": "belum"
-                      }
+            "status": "belum",
+            "prioritas": prioritas
+        }
         tugas.append(data_tugas)
         print("Tugas berhasil ditambahkan:", nama_tugas)
 #Pengguna melihat daftar tugas
@@ -28,7 +43,7 @@ while True:
             print("\nDaftar Tugas:")
             nomor = 1
             for item in tugas:
-                print(nomor,item["nama"],"-",item["status"])
+                print(nomor,item["nama"],"-",item["status"],"-",item["prioritas"])
                 nomor += 1
 #Pengguna menghapus tugas
     elif pilihan == "3":
