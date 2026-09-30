@@ -59,9 +59,10 @@ while True:
     elif pilihan == "5":
         try:
             selesai_nomor = int(input("\nMasukkan nomor tugas yang telah selesai: ").strip())
-            index = selesai_nomor - 1
-            tugas[index]["status"] = "selesai"
-            print("Tugas berhasil ditandai sebagai selesai:", selesai_nomor)
+            if 1 <= selesai_nomor <= len(tugas):
+                index = selesai_nomor - 1
+                tugas[index]["status"] = "selesai"
+                print("Tugas berhasil ditandai sebagai selesai:", selesai_nomor)
         except (IndexError, ValueError):
             print("Tugas gagal ditandai sebagai selesai. Nomor tugas tidak valid.")
 #Pengguna mencari tugas
