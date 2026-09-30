@@ -4,3 +4,4 @@ plan
 - Bisa membuat AI agent
 - Mendapatkan teman atau mentor dalam belajar
 - Enjoy dalam belajar
+- Jangan lupa makan tepat waktu
