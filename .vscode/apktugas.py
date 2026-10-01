@@ -14,6 +14,7 @@ while True:
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
+        deadline = input("Masukkan deadline tugas (YYYY-MM-DD): ").strip()
         print("\nPilihan prioritas tugas:")
         print("1. Tinggi")
         print("2. Sedang")
@@ -30,6 +31,7 @@ while True:
             prioritas = "sedang"
         data_tugas = {
             "nama": nama_tugas,
+            "deadline": deadline,
             "status": "belum",
             "prioritas": prioritas
         }
@@ -43,7 +45,7 @@ while True:
             print("\nDaftar Tugas:")
             nomor = 1
             for item in tugas:
-                print(nomor,item["nama"],"-",item["status"],"-",item["prioritas"])
+                print(nomor,item["nama"],"-",item["status"],"-",item["prioritas"],"-",item["deadline"])
                 nomor += 1
 #Pengguna menghapus tugas
     elif pilihan == "3":
@@ -78,6 +80,8 @@ while True:
                 index = selesai_nomor - 1
                 tugas[index]["status"] = "selesai"
                 print("Tugas berhasil ditandai sebagai selesai:", selesai_nomor)
+            else:
+                print("Nomor tugas tidak valid")
         except (IndexError, ValueError):
             print("Tugas gagal ditandai sebagai selesai. Nomor tugas tidak valid.")
 #Pengguna mencari tugas
@@ -86,7 +90,7 @@ while True:
         ditemukan = False
         for item in tugas:
             if keyword.lower() in item["nama"].lower():
-                print(item["nama"], "-", item["status"])
+                print(item["nama"], "-", item["status"], "-", item["deadline"])
                 ditemukan = True
         if not ditemukan:
             print("Tugas tidak ditemukan")
