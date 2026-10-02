@@ -8,9 +8,10 @@ while True:
     print("4. Edit Tugas")
     print("5. Tandai Selesai")
     print("6. Cari Tugas")
-    print("7. Keluar")
+    print("7. Filter tugas berdasarkan prioritas")
+    print("8. Keluar")
 
-    pilihan = input("Pilih menu (1/2/3/4/5/6/7):").strip()
+    pilihan = input("Pilih menu (1/2/3/4/5/6/7/8):").strip()
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
@@ -94,8 +95,33 @@ while True:
                 ditemukan = True
         if not ditemukan:
             print("Tugas tidak ditemukan")
-#Pengguna keluar dari program
+#Pengguna memfilter tugas berdasarkan prioritas
     elif pilihan == "7":
+        while True:
+            print("\nPilihan prioritas tugas:")
+            print("1. Tinggi")
+            print("2. Sedang")
+            print("3. Rendah")
+            prioritas_filter = input("Masukkan prioritas tugas (1/2/3): ").strip()
+            if prioritas_filter not in ["1", "2", "3"]:
+                print("Input tidak valid. Harap masukkan 1, 2, atau 3.")
+                continue
+            break
+        if prioritas_filter == "1":
+            prioritas = "tinggi"
+        elif prioritas_filter == "2":
+            prioritas = "sedang"    
+        elif prioritas_filter == "3":
+            prioritas = "rendah"
+        ditemukan = False
+        for item in tugas:
+            if item["prioritas"] == prioritas:
+                print(item["nama"], "-", item["status"], "-", item["deadline"])
+                ditemukan = True
+        if not ditemukan:
+            print("Tidak ada tugas dengan prioritas", prioritas)
+#Pengguna keluar dari program
+    elif pilihan == "8":
         break
     else:
         print("Pilihan tidak tersedia")
