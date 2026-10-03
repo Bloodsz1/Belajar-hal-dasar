@@ -9,9 +9,10 @@ while True:
     print("5. Tandai Selesai")
     print("6. Cari Tugas")
     print("7. Filter tugas berdasarkan prioritas")
-    print("8. Keluar")
+    print("8. Statistik tugas")
+    print("9. Keluar")
 
-    pilihan = input("Pilih menu (1/2/3/4/5/6/7/8):").strip()
+    pilihan = input("Pilih menu (1/2/3/4/5/6/7/8/9):").strip()
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
@@ -121,7 +122,7 @@ while True:
         if not ditemukan:
             print("Tidak ada tugas dengan prioritas", prioritas)
 #Pengguna keluar dari program
-    elif pilihan == "8":
+    elif pilihan == "9":
         break
     else:
         print("Pilihan tidak tersedia")
