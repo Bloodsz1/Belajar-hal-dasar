@@ -121,6 +121,13 @@ while True:
                 ditemukan = True
         if not ditemukan:
             print("Tidak ada tugas dengan prioritas", prioritas)
+#Pengguna ingin melihat statistik tugas
+elif pilihan == "8":
+    print("\n" + "=" * 5 + " STATISTIK TUGAS " + "=" * 5)
+    total_tugas = len(tugas)
+    print = ("total tugas: ", total_tugas)
+
+
 #Pengguna keluar dari program
     elif pilihan == "9":
         break
