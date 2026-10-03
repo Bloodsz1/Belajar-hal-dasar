@@ -131,8 +131,8 @@ elif pilihan == "8":
         if item["status"] == "selesai":
         selesai += 1
     print ("tugas yg selesai: ", selesai)
-
-
+    belum = total_tugas - selesai 
+    print ("Tugas yg belum selesai: ",belum)
 #Pengguna keluar dari program
     elif pilihan == "9":
         break
