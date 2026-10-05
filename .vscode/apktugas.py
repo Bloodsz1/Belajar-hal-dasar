@@ -123,16 +123,16 @@ while True:
             print("Tidak ada tugas dengan prioritas", prioritas)
 #Pengguna ingin melihat statistik tugas
     elif pilihan == "8":
-    print("\n" + "=" * 5 + " STATISTIK TUGAS " + "=" * 5)
-    total_tugas = len(tugas)
-    print("total tugas: ", total_tugas)
-    selesai = 0
-    for item in tugas:
-        if item["status"] == "selesai":
-        selesai += 1
-    print ("tugas yg selesai: ", selesai)
-    belum = total_tugas - selesai 
-    print ("Tugas yg belum selesai: ",belum)
+        print("\n" + "=" * 5 + " STATISTIK TUGAS " + "=" * 5)
+        total_tugas = len(tugas)
+        print("total tugas: ", total_tugas)
+        selesai = 0
+        for item in tugas:
+            if item["status"] == "selesai":
+                selesai += 1
+        print("tugas yg selesai: ", selesai)
+        belum = total_tugas - selesai 
+        print("Tugas yg belum selesai: ", belum)
 #Pengguna keluar dari program
     elif pilihan == "9":
         break
