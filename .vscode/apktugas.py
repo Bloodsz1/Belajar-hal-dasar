@@ -69,6 +69,22 @@ while True:
                 index = edit_nomor - 1
                 nama_baru = input("Masukkan  nama tugas baru: ").strip()
                 tugas[index]["nama"] = nama_baru
+                deadline_baru = input("Masukkan deadline tugas baru (YYYY-MM-DD): ").strip()
+                tugas[index]["deadline"] = deadline_baru
+                print("\nPilihan prioritas tugas:")
+                print("1. Tinggi")
+                print("2. Sedang")
+                print("3. Rendah")
+                prioritas_input = input("Masukkan prioritas tugas baru (1/2/3): ").strip()
+                if prioritas_input == "1":  
+                    tugas[index]["prioritas"] = "tinggi"
+                elif prioritas_input == "2":
+                    tugas[index]["prioritas"] = "sedang"
+                elif prioritas_input == "3":
+                    tugas[index]["prioritas"] = "rendah"
+                else:
+                    print("Input tidak valid. Prioritas tugas tidak diubah.")
+                    prioritas_baru = tugas[index]["prioritas"]
                 print("Tugas berhasil diedit:", edit_nomor)
             else:
                 print("Nomor tugas tidak valid")
