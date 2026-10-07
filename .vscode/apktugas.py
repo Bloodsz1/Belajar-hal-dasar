@@ -84,7 +84,6 @@ while True:
                     tugas[index]["prioritas"] = "rendah"
                 else:
                     print("Input tidak valid. Prioritas tugas tidak diubah.")
-                    prioritas_baru = tugas[index]["prioritas"]
                 print("Tugas berhasil diedit:", edit_nomor)
             else:
                 print("Nomor tugas tidak valid")
