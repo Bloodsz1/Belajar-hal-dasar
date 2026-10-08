@@ -48,6 +48,7 @@ while True:
         if not tugas:
             print("Tidak ada tugas yang tersedia")
         else:
+            print(f"\nDaftar Tugas (Total: {len(tugas)}):")
             print("\nDaftar Tugas:")
             nomor = 1
             for item in tugas:
