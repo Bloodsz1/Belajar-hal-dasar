@@ -151,6 +151,7 @@ while True:
 #Pengguna keluar dari program
     elif pilihan == "9":
         print("Terima kasih telah menggunakan aplikasi daftar tugas sederhana!")
+        print("Silahkan datang lagi")
         break
     else:
         print("Pilihan tidak tersedia")
