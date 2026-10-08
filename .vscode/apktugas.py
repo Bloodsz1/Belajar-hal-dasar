@@ -1,6 +1,7 @@
 # Program Latihan Membuat Aplikasi Daftar Tugas Sederhana
 tugas = []
 while True:
+    print("\n"*2)
     print("\n====== DAFTAR TUGAS ======")
     print("1. Tambah Tugas")
     print("2. Lihat Tugas")
@@ -16,6 +17,9 @@ while True:
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
+        if not nama_tugas:
+            print("nama tugas tidak boleh kosong")
+            continue
         deadline = input("Masukkan deadline tugas (YYYY-MM-DD): ").strip()
         print("\nPilihan prioritas tugas:")
         print("1. Tinggi")
