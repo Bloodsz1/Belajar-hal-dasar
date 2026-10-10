@@ -1,4 +1,5 @@
 # Program Latihan Membuat Aplikasi Daftar Tugas Sederhana
+from datetime import datetime
 tugas = []
 while True:
     print("\n"*2)
@@ -20,7 +21,13 @@ while True:
         if not nama_tugas:
             print("nama tugas tidak boleh kosong")
             continue
-        deadline = input("Masukkan deadline tugas (YYYY-MM-DD): ").strip()
+        while True:
+            deadline_input = input("Masukkan deadline tugas (YYYY-MM-DD): ").strip()
+            try:
+                deadline = datetime.strptime(deadline_input, "%Y-%m-%d").date()
+                break
+            except ValueError:
+                print("Format tanggal tidak valid. Harap masukkan dalam format YYYY-MM-DD.")
         print("\nPilihan prioritas tugas:")
         print("1. Tinggi")
         print("2. Sedang")
@@ -74,7 +81,13 @@ while True:
                 index = edit_nomor - 1
                 nama_baru = input("Masukkan  nama tugas baru: ").strip()
                 tugas[index]["nama"] = nama_baru
-                deadline_baru = input("Masukkan deadline tugas baru (YYYY-MM-DD): ").strip()
+                while True:
+                    deadline_baru_input = input("Masukkan deadline tugas baru (YYYY-MM-DD): ").strip()
+                    try:
+                        deadline_baru = datetime.strptime(deadline_baru_input, "%Y-%m-%d").date()
+                        break
+                    except ValueError:
+                        print("Format tanggal tidak valid. Harap masukkan dalam format YYYY-MM-DD.")
                 tugas[index]["deadline"] = deadline_baru
                 print("\nPilihan prioritas tugas:")
                 print("1. Tinggi")
