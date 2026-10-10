@@ -12,9 +12,10 @@ while True:
     print("6. Cari Tugas")
     print("7. Filter tugas berdasarkan prioritas")
     print("8. Statistik tugas")
-    print("9. Keluar")
+    print("9. Batalkan status selesai")
+    print("10. Keluar")
 
-    pilihan = input("Pilih menu (1/2/3/4/5/6/7/8/9):").strip()
+    pilihan = input("Pilih menu (1/2/3/4/5/6/7/8/9/10):").strip()
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
@@ -166,8 +167,25 @@ while True:
         print("tugas yg selesai: ", selesai)
         belum = total_tugas - selesai 
         print("Tugas yg belum selesai: ", belum)
-#Pengguna keluar dari program
+#Pengguna ingin membatalkan status selesai
     elif pilihan == "9":
+        if not tugas:
+            print("Tidak ada tugas yang tersedia")
+            continue
+        try:
+            batal_nomor = int(input("\nMasukkan nomor tugas yang ingin dibatalkan status selesai: ").strip())
+            if 1 <= batal_nomor <= len(tugas):
+                index = batal_nomor - 1
+                if tugas[index]["status"] == "selesai":
+                    tugas[index]["status"] = "belum"
+                    print("Status tugas berhasil dibatalkan menjadi belum selesai:", batal_nomor)
+                else:
+                    print("Tugas ini belum ditandai sebagai selesai.")
+        except (IndexError, ValueError):
+                print("Nomor tugas tidak valid")
+
+#Pengguna keluar dari program
+    elif pilihan == "10":
         print("Terima kasih telah menggunakan aplikasi daftar tugas sederhana!")
         print("Silahkan datang lagi")
         break
