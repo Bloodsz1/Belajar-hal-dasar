@@ -125,8 +125,11 @@ while True:
             selesai_nomor = int(input("\nMasukkan nomor tugas yang telah selesai: ").strip())
             if 1 <= selesai_nomor <= len(tugas):
                 index = selesai_nomor - 1
-                tugas[index]["status"] = "selesai"
-                print("Tugas berhasil ditandai sebagai selesai:", selesai_nomor)
+                if tugas[index]["status"] == "selesai":
+                    print("Tugas ini sudah ditandai sebagai selesai.")
+                else:
+                    tugas[index]["status"] = "selesai"
+                    print("Tugas berhasil ditandai sebagai selesai:", selesai_nomor)
             else:
                 print("Nomor tugas tidak valid")
         except (IndexError, ValueError):
