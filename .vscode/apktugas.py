@@ -90,9 +90,9 @@ while True:
                 index = edit_nomor - 1
                 nama_baru = input("Masukkan  nama tugas baru: ").strip()
                 if not nama_baru:
-                    print("Nama tugas tidak boleh kosong. Tugas tidak diubah.")
-                    continue
-                tugas[index]["nama"] = nama_baru
+                    print("Nama tugas dikosongkan. nama lama dipertahankan.")
+                else:
+                    tugas[index]["nama"] = nama_baru
                 while True:
                     deadline_baru_input = input("Masukkan deadline tugas baru (YYYY-MM-DD): ").strip()
                     try:
