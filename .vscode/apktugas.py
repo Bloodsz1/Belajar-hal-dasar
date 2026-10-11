@@ -66,11 +66,14 @@ while True:
 #Pengguna menghapus tugas
     elif pilihan == "3":
         try:
+            if not tugas:
+                print("Tidak ada tugas yang tersedia")
+                continue
             hapus_nomor = int(input("\nMasukkan nomor tugas yang ingin dihapus: ").strip())
             if 1 <= hapus_nomor <= len(tugas):
                 index = hapus_nomor - 1
                 yakin = input("Apakah Anda yakin ingin menghapus tugas ini? (y/n): ").strip().lower()
-                if yakin != 'y':
+                if yakin == 'y':
                     del tugas[index]
                     print("Tugas berhasil dihapus:", hapus_nomor)
                 else:
