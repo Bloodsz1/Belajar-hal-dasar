@@ -11,11 +11,12 @@ while True:
     print("5. Tandai Selesai")
     print("6. Cari Tugas")
     print("7. Filter tugas berdasarkan prioritas")
-    print("8. Statistik tugas")
-    print("9. Batalkan status selesai")
-    print("10. Keluar")
+    print("8. Filter tugas berdasarkan status")
+    print("9. Statistik tugas")
+    print("10. Batalkan status selesai")
+    print("11. Keluar")
 
-    pilihan = input("Pilih menu (1/2/3/4/5/6/7/8/9/10):").strip()
+    pilihan = input("Pilih menu (1/2/3/4/5/6/7/8/9/10/11):").strip()
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
@@ -158,8 +159,30 @@ while True:
                 ditemukan = True
         if not ditemukan:
             print("Tidak ada tugas dengan prioritas", prioritas)
-#Pengguna ingin melihat statistik tugas
+#Pengguna memfilter tugas berdasarkan status
     elif pilihan == "8":
+        while True:
+            print("\nPilihan status tugas:")
+            print("1. Selesai")
+            print("2. Belum Selesai")
+            status_filter = input("Masukkan status tugas (1/2): ").strip()
+            if status_filter not in ["1", "2"]:
+                print("Input tidak valid. Harap masukkan 1 atau 2.")
+                continue
+            break
+        if status_filter == "1":
+            status = "selesai"
+        elif status_filter == "2":
+            status = "belum"
+        ditemukan = False
+        for item in tugas:
+            if item["status"] == status:
+                print(item["nama"], "-", item["status"], "-", item["deadline"])
+                ditemukan = True
+        if not ditemukan:
+            print("Tidak ada tugas dengan status", status)
+#Pengguna ingin melihat statistik tugas
+    elif pilihan == "9":
         print("\n" + "=" * 5 + " STATISTIK TUGAS " + "=" * 5)
         total_tugas = len(tugas)
         print("total tugas: ", total_tugas)
@@ -171,7 +194,7 @@ while True:
         belum = total_tugas - selesai 
         print("Tugas yg belum selesai: ", belum)
 #Pengguna ingin membatalkan status selesai
-    elif pilihan == "9":
+    elif pilihan == "10":
         if not tugas:
             print("Tidak ada tugas yang tersedia")
             continue
@@ -188,7 +211,7 @@ while True:
                 print("Nomor tugas tidak valid")
 
 #Pengguna keluar dari program
-    elif pilihan == "10":
+    elif pilihan == "11":
         print("Terima kasih telah menggunakan aplikasi daftar tugas sederhana!")
         print("Silahkan datang lagi")
         break
