@@ -122,6 +122,9 @@ while True:
 #Pengguna menandai tugas sebagai selesai
     elif pilihan == "5":
         try:
+            if not tugas:
+                print("Tidak ada tugas yang tersedia")
+                continue
             selesai_nomor = int(input("\nMasukkan nomor tugas yang telah selesai: ").strip())
             if 1 <= selesai_nomor <= len(tugas):
                 index = selesai_nomor - 1
@@ -137,6 +140,9 @@ while True:
 #Pengguna mencari tugas
     elif pilihan == "6":
         keyword = input("\nMasukkan keyword tugas yang ingin dicari: ").strip()
+        if not keyword:
+            print("Keyword tidak boleh kosong")
+            continue
         ditemukan = False
         for item in tugas:
             if keyword.lower() in item["nama"].lower():
@@ -152,8 +158,8 @@ while True:
             print("2. Sedang")
             print("3. Rendah")
             prioritas_filter = input("Masukkan prioritas tugas (1/2/3): ").strip()
-            if prioritas_filter not in ["1", "2", "3"]:
-                print("Input tidak valid. Harap masukkan 1, 2, atau 3.")
+            if not prioritas_filter:
+                print("Input tidak boleh kosong. Harap masukkan 1, 2, atau 3.")
                 continue
             break
         if prioritas_filter == "1":
