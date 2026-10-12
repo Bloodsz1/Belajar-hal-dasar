@@ -101,11 +101,15 @@ while True:
                     except ValueError:
                         print("Format tanggal tidak valid. Harap masukkan dalam format YYYY-MM-DD.")
                 tugas[index]["deadline"] = deadline_baru
-                print("\nPilihan prioritas tugas:")
-                print("1. Tinggi")
-                print("2. Sedang")
-                print("3. Rendah")
-                prioritas_input = input("Masukkan prioritas tugas baru (1/2/3): ").strip()
+                while True:
+                    print("\nPilihan prioritas tugas:")
+                    print("1. Tinggi")
+                    print("2. Sedang")
+                    print("3. Rendah")
+                    prioritas_input = input("Masukkan prioritas tugas baru (1/2/3): ").strip()
+                    if prioritas_input in ["1", "2", "3"]:
+                        break
+                    print("Input tidak valid. Harap masukkan 1, 2, atau 3.")
                 if prioritas_input == "1":  
                     tugas[index]["prioritas"] = "tinggi"
                 elif prioritas_input == "2":
