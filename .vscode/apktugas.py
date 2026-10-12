@@ -162,7 +162,7 @@ while True:
             print("2. Sedang")
             print("3. Rendah")
             prioritas_filter = input("Masukkan prioritas tugas (1/2/3): ").strip()
-            if not prioritas_filter:
+            if prioritas_filter not in ["1","2","3"]:
                 print("Input tidak boleh kosong. Harap masukkan 1, 2, atau 3.")
                 continue
             break
