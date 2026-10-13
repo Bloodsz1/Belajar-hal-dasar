@@ -10,8 +10,8 @@ while True:
     pilihan = input("Masukkan pilihan (1/2/3/4): ").strip()
 
     if pilihan == "1":
-        judul = input('Judul buku: ').capitalize().strip()
-        penulis = input('Penulis buku: ').capitalize().strip()
+        judul = input('Judul buku: ').lower().strip()
+        penulis = input('Penulis buku: ').lower().strip()
 
         if judul == "" or penulis == "" :
             print ("data tidak boleh kosong")
@@ -19,6 +19,12 @@ while True:
 
         data_buku = [judul, penulis]
         buku.append(data_buku)
+
+    elif pilihan == "3":
+        dicari = input("masukkan buku yg ingin dicari").lower().strip()
+        if dicari in judul:
+            print(buku)
+            
     elif pilihan == "2":
         print("\n","="*10,"Data buku: ","="*10,"\n")
 
@@ -32,7 +38,5 @@ while True:
         break
     else :
         print ("pilihan tidak tersedia")
-    
 
-    
 print ("Program selesai")
