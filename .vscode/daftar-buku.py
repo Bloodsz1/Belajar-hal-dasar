@@ -1,6 +1,8 @@
+import os
 buku = []
-
+os.system("clear")
 while True:
+    print("\n")
     print("=====Perpustakaan=====")
     print("1. Tambah buku")
     print("2. Lihat buku")
