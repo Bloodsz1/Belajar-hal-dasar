@@ -37,16 +37,27 @@ while True:
                 print(f"judul   :{data_buku[0]}")
                 print(f"penulis :{data_buku[1]}")
                 ditemukan = True
+                break
         if not ditemukan:
             print("Buku tidak ditemukan")
 #Menghapus buku
     elif pilihan == "4":
+        if not buku:
+            print("Belum ada buku untuk dihapus")
+            continue
         print("\n","="*10,"Data buku: ","="*10,"\n")
     
         for index,data_buku in enumerate(buku):
             print(f"{index+1} | {data_buku[0]} | {data_buku[1]}")
-            print ("="*34)
-        hapus = input("masukkan judul buku")
+        try:
+            hapus = int(input("masukkan nomor buku yang ingin dihapus"))
+            if 1 <= hapus <= len(buku):
+                buku.pop(hapus - 1)
+                print ("Buku berhasil dihapus")
+            else:
+                print("Nomor buku tidak tersedia")
+        except ValueError:
+            print ("Masukkan buku dalam bentuk nomor")
 #Keluar dari program
     elif pilihan == '5':
         print ("Terima kasih telah mengunakan program perpustakaan")
