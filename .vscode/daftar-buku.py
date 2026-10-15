@@ -32,12 +32,28 @@ while True:
         print("\n","="*10,"Data buku: ","="*10,"\n")
         if not buku:
             print("Belum ada koleksi buku di perpustakaan.")
+        else:
+            print("\n" + "=" * 50)
+            print(f"{'No':<4} | {'Judul Buku':<25} | {'Penulis':<15}")
+            print("-" * 50)
+            for index, data in enumerate(buku, start=1):
+                print(f"{index:<4} | {data[0]:<25} | {data[1]:<15}")
+            print("=" * 50)
 
     # 3. Mencari buku
     elif pilihan == "3":
         if not buku:
-            print("ℹ️  Belum ada buku untuk dicari.")
+            print("Belum ada buku untuk dicari.")
             continue
+        dicari = input("Masukkan judul/kata kunci buku: ").lower().strip()
+        hasil = [data for data in buku if dicari in data[0].lower()]
+
+        if hasil:
+            print(f"\nDitemukan {len(hasil)} buku:")
+            for index, data in enumerate(hasil, start=1):
+                print(f"{index}. {data[0]} (Penulis: {data[1]})")
+        else:
+            print("Buku tidak ditemukan.")
     # 4. Menghapus buku
     elif pilihan == "4":
         if not buku:
