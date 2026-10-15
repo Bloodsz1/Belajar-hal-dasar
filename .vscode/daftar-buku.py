@@ -1,15 +1,20 @@
 buku = []
-while True:
-    print("\n")
-    print("=====Perpustakaan=====")
-    print("1. Tambah buku")
-    print("2. Lihat buku")
-    print("3. Cari buku")
-    print("4. Hapus buku")
-    print("5. Keluar")
 
-    pilihan = input("Masukkan pilihan (1/2/3/4/5): ").strip()
-#Menambahkan buku
+while True:
+    
+    print("\n" + "=" * 35)
+    print("       SISTEM PERPUSTAKAAN")
+    print("=" * 35)
+    print("1. Tambah Buku")
+    print("2. Lihat Semua Buku")
+    print("3. Cari Buku")
+    print("4. Hapus Buku")
+    print("5. Keluar")
+    print("=" * 35)
+
+    pilihan = input("Masukkan pilihan (1-5): ").strip()
+
+    # 1. Menambahkan buku
     if pilihan == "1":
         judul = input('Judul buku: ').lower().strip()
         penulis = input('Penulis buku: ').lower().strip()
@@ -20,47 +25,42 @@ while True:
 
         data_buku = [judul, penulis]
         buku.append(data_buku)
-#Melihat daftar buku    
+        print(f"Buku '{judul}' berhasil ditambahkan!")
+
+    # 2. Melihat daftar buku
     elif pilihan == "2":
         print("\n","="*10,"Data buku: ","="*10,"\n")
+        if not buku:
+            print("Belum ada koleksi buku di perpustakaan.")
 
-        for index,data_buku in enumerate(buku):
-            print(f"{index+1} | {data_buku[0]} | {data_buku[1]}")
-
-        print ("="*34)
-#Mencari daftar buku
+    # 3. Mencari buku
     elif pilihan == "3":
-        dicari = input("Masukkan judul buku yg ingin dicari: ").lower().strip()
-        ditemukan = False
-        for data_buku in buku:
-            if dicari in data_buku[0]:
-                print(f"judul   :{data_buku[0]}")
-                print(f"penulis :{data_buku[1]}")
-                ditemukan = True
-                break
-        if not ditemukan:
-            print("Buku tidak ditemukan")
-#Menghapus buku
+        if not buku:
+            print("ℹ️  Belum ada buku untuk dicari.")
+            continue
+    # 4. Menghapus buku
     elif pilihan == "4":
         if not buku:
             print("Belum ada buku untuk dihapus")
             continue
-        print("\n","="*10,"Data buku: ","="*10,"\n")
-    
-        for index,data_buku in enumerate(buku):
-            print(f"{index+1} | {data_buku[0]} | {data_buku[1]}")
+
+        print("\nDaftar Buku:")
+        for index, data in enumerate(buku, start=1):
+            print(f"{index}. {data[0]} - {data[1]}")
+
         try:
-            hapus = int(input("masukkan nomor buku yang ingin dihapus"))
+            hapus = int(input("\nMasukkan nomor buku yang ingin dihapus: "))
             if 1 <= hapus <= len(buku):
-                buku.pop(hapus - 1)
-                print ("Buku berhasil dihapus")
+                buku_terhapus = buku.pop(hapus - 1)
+                print(f"Buku '{buku_terhapus[0]}' berhasil dihapus!")
             else:
                 print("Nomor buku tidak tersedia")
         except ValueError:
-            print ("Masukkan buku dalam bentuk nomor")
-#Keluar dari program
-    elif pilihan == '5':
-        print ("Terima kasih telah mengunakan program perpustakaan")
+            print("Harap masukkan nomor dalam bentuk angka!")
+
+    # 5. Keluar dari program
+    elif pilihan == "5":
+        print("\nTerima kasih telah menggunakan program perpustakaan!")
         break
     else :
         print ("pilihan tidak tersedia")
