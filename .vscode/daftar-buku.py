@@ -86,17 +86,20 @@ while True:
             edit = int(input("\nMasukkan nomor buku yang ingin diedit: "))
             if 1 <= edit <= len(buku):
                 index_buku = edit - 1
+                print("\nTekan enter jika ingin memperhatikan data lama")
 
                 judul_baru = input("Masukkan judul buku yg baru").strip()
-                penulis_baru = input("Masukkan nama penulis baru king")
+                penulis_baru = input("Masukkan nama penulis baru king").strip()
 
-                buku[index_buku][0]= judul_baru
-                if not penulis_baru:
-                    print("Penulis lama dipertahankan")
-                    continue
+                if judul_baru:
+                    buku[index_buku][0]= judul_baru
+                if penulis_baru:
+                    buku[index_buku][1]= penulis_baru
+                    
                 print(f"Buku {judul_baru} berhasil diedit")
-                buku[index_buku][1]= penulis_baru
-
+            else:
+                print("Buku tidak ditemukan")
+                    
         except ValueError:
             print("Harap masukkan nomor buku dengan benar")
 
