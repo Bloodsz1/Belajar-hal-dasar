@@ -9,7 +9,8 @@ while True:
     print("2. Lihat Semua Buku")
     print("3. Cari Buku")
     print("4. Hapus Buku")
-    print("5. Keluar")
+    print("5. Edit Buku")
+    print("6. Keluar")
     print("=" * 35)
 
     pilihan = input("Masukkan pilihan (1-5): ").strip()
@@ -69,13 +70,28 @@ while True:
             if 1 <= hapus <= len(buku):
                 buku_terhapus = buku.pop(hapus - 1)
                 print(f"Buku '{buku_terhapus[0]}' berhasil dihapus!")
-            else:
-                print("Nomor buku tidak tersedia")
         except ValueError:
             print("Harap masukkan nomor dalam bentuk angka!")
 
-    # 5. Keluar dari program
+    # 5. Mengedit buku
     elif pilihan == "5":
+        if not buku:
+            print("Belum ada buku untuk diedit")
+            continue
+        
+        print("\nDaftar Buku:")
+        for index, data in enumerate(buku, start=1):
+            print(f"{index}. {data[0]} - {data[1]}")
+        try:
+            edit = int(input("\nMasukkan nomor buku yang ingin diedit: "))
+            if 1 <= edit <= len(buku):
+                print("halo")
+
+        except ValueError:
+            print("Harap masukkan nomor buku dengan benar")
+
+    # 6. Keluar dari program
+    elif pilihan == "6":
         print("\nTerima kasih telah menggunakan program perpustakaan!")
         break
     else :
