@@ -16,7 +16,7 @@ while True:
     print("10. Batalkan status selesai")
     print("11. Keluar")
 
-    pilihan = input("Pilih menu (1/2/3/4/5/6/7/8/9/10/11):").strip()
+    pilihan = input("Pilih menu (1-11):").strip()
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
