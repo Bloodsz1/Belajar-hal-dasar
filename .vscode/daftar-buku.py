@@ -91,8 +91,11 @@ while True:
                 penulis_baru = input("Masukkan nama penulis baru king")
 
                 buku[index_buku][0]= judul_baru
-                buku[index_buku][1]= penulis_baru
+                if not penulis_baru:
+                    print("Penulis lama dipertahankan")
+                    continue
                 print(f"Buku {judul_baru} berhasil diedit")
+                buku[index_buku][1]= penulis_baru
 
         except ValueError:
             print("Harap masukkan nomor buku dengan benar")
