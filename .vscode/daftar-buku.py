@@ -13,7 +13,7 @@ while True:
     print("6. Keluar")
     print("=" * 35)
 
-    pilihan = input("Masukkan pilihan (1-5): ").strip()
+    pilihan = input("Masukkan pilihan (1-6): ").strip()
 
     # 1. Menambahkan buku
     if pilihan == "1":
@@ -85,7 +85,14 @@ while True:
         try:
             edit = int(input("\nMasukkan nomor buku yang ingin diedit: "))
             if 1 <= edit <= len(buku):
-                print("halo")
+                index_buku = edit - 1
+
+                judul_baru = input("Masukkan judul buku yg baru").strip()
+                penulis_baru = input("Masukkan nama penulis baru king")
+
+                buku[index_buku][0]= judul_baru
+                buku[index_buku][1]= penulis_baru
+                print(f"Buku {judul_baru} berhasil diedit")
 
         except ValueError:
             print("Harap masukkan nomor buku dengan benar")
