@@ -70,6 +70,8 @@ while True:
             if 1 <= hapus <= len(buku):
                 buku_terhapus = buku.pop(hapus - 1)
                 print(f"Buku '{buku_terhapus[0]}' berhasil dihapus!")
+            else:
+                print("Masukkan nomor yang tepat!")
         except ValueError:
             print("Harap masukkan nomor dalam bentuk angka!")
 
@@ -96,7 +98,7 @@ while True:
                 if penulis_baru:
                     buku[index_buku][1]= penulis_baru
                     
-                print(f"Buku {judul_baru} berhasil diedit")
+                print(f"Buku {buku[index_buku[0]]} berhasil diedit")
             else:
                 print("Buku tidak ditemukan")
                     
