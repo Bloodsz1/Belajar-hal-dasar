@@ -1,4 +1,5 @@
 def tampilkan_menu():
+    ''' Funsi tampilkan menu '''
     print("\n" + "=" * 35)
     print("       SISTEM PERPUSTAKAAN")
     print("=" * 35)
@@ -9,6 +10,18 @@ def tampilkan_menu():
     print("5. Edit Buku")
     print("6. Keluar")
     print("=" * 35)
+def tambah_buku(daftar_buku):
+    ''' Fungsi tambah buku '''
+    judul = input('Judul buku: ').lower().strip()
+    penulis = input('Penulis buku: ').lower().strip()
+
+    if judul == "" or penulis == "" :
+        print ("data tidak boleh kosong")
+        continue
+    else:
+        data_buku = [judul, penulis]
+        daftar_buku.append(data_buku)
+        print(f"Buku '{judul}' berhasil ditambahkan!")
 buku = []
 
 while True:
@@ -17,16 +30,7 @@ while True:
 
     # 1. Menambahkan buku
     if pilihan == "1":
-        judul = input('Judul buku: ').lower().strip()
-        penulis = input('Penulis buku: ').lower().strip()
-
-        if judul == "" or penulis == "" :
-            print ("data tidak boleh kosong")
-            continue
-
-        data_buku = [judul, penulis]
-        buku.append(data_buku)
-        print(f"Buku '{judul}' berhasil ditambahkan!")
+        tambah_buku(buku)
 
     # 2. Melihat daftar buku
     elif pilihan == "2":
