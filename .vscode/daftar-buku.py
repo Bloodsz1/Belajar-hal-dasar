@@ -1,7 +1,4 @@
-buku = []
-
-while True:
-    
+def tampilkan_menu():
     print("\n" + "=" * 35)
     print("       SISTEM PERPUSTAKAAN")
     print("=" * 35)
@@ -12,7 +9,10 @@ while True:
     print("5. Edit Buku")
     print("6. Keluar")
     print("=" * 35)
+buku = []
 
+while True:
+    tampilkan_menu()
     pilihan = input("Masukkan pilihan (1-6): ").strip()
 
     # 1. Menambahkan buku
