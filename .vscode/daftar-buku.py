@@ -17,11 +17,21 @@ def tambah_buku(daftar_buku):
 
     if judul == "" or penulis == "" :
         print ("data tidak boleh kosong")
-        continue
     else:
         data_buku = [judul, penulis]
         daftar_buku.append(data_buku)
         print(f"Buku '{judul}' berhasil ditambahkan!")
+def melihat_buku():
+    print("\n","="*10,"Data buku: ","="*10,"\n")
+    if not buku:
+        print("Belum ada koleksi buku di perpustakaan.")
+    else:
+        print("\n" + "=" * 50)
+        print(f"{'No':<4} | {'Judul Buku':<25} | {'Penulis':<15}")
+        print("-" * 50)
+        for index, data in enumerate(buku, start=1):
+            print(f"{index:<4} | {data[0]:<25} | {data[1]:<15}")
+            print("=" * 50)
 buku = []
 
 while True:
@@ -31,20 +41,9 @@ while True:
     # 1. Menambahkan buku
     if pilihan == "1":
         tambah_buku(buku)
-
     # 2. Melihat daftar buku
     elif pilihan == "2":
-        print("\n","="*10,"Data buku: ","="*10,"\n")
-        if not buku:
-            print("Belum ada koleksi buku di perpustakaan.")
-        else:
-            print("\n" + "=" * 50)
-            print(f"{'No':<4} | {'Judul Buku':<25} | {'Penulis':<15}")
-            print("-" * 50)
-            for index, data in enumerate(buku, start=1):
-                print(f"{index:<4} | {data[0]:<25} | {data[1]:<15}")
-            print("=" * 50)
-
+        melihat_buku()
     # 3. Mencari buku
     elif pilihan == "3":
         if not buku:
