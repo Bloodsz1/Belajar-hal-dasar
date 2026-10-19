@@ -113,7 +113,6 @@ while True:
     # 5. Mengedit buku
     elif pilihan == "5":
         edit_buku(buku)
-
     # 6. Keluar dari program
     elif pilihan == "6":
         keluar_program(buku)
