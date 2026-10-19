@@ -43,6 +43,23 @@ def mencari_buku(daftar_buku):
             print(f"{index}. {data[0]} (Penulis: {data[1]})")
     else:
         print("Buku tidak ditemukan.")
+def hapus_buku(daftar_buku):
+    if not buku:
+        print("Belum ada buku untuk dihapus")
+
+    print("\nDaftar Buku:")
+    for index, data in enumerate(buku, start=1):
+        print(f"{index}. {data[0]} - {data[1]}")
+
+    try:
+        hapus = int(input("\nMasukkan nomor buku yang ingin dihapus: "))
+        if 1 <= hapus <= len(buku):
+            buku_terhapus = buku.pop(hapus - 1)
+            print(f"Buku '{buku_terhapus[0]}' berhasil dihapus!")
+        else:
+            print("Masukkan nomor yang tepat!")
+    except ValueError:
+        print("Harap masukkan nomor dalam bentuk angka!")
 buku = []
 
 while True:
@@ -60,23 +77,7 @@ while True:
         mencari_buku(buku)
     # 4. Menghapus buku
     elif pilihan == "4":
-        if not buku:
-            print("Belum ada buku untuk dihapus")
-            continue
-
-        print("\nDaftar Buku:")
-        for index, data in enumerate(buku, start=1):
-            print(f"{index}. {data[0]} - {data[1]}")
-
-        try:
-            hapus = int(input("\nMasukkan nomor buku yang ingin dihapus: "))
-            if 1 <= hapus <= len(buku):
-                buku_terhapus = buku.pop(hapus - 1)
-                print(f"Buku '{buku_terhapus[0]}' berhasil dihapus!")
-            else:
-                print("Masukkan nomor yang tepat!")
-        except ValueError:
-            print("Harap masukkan nomor dalam bentuk angka!")
+        hapus_buku(buku)
 
     # 5. Mengedit buku
     elif pilihan == "5":
