@@ -21,7 +21,7 @@ def tambah_buku(daftar_buku):
         data_buku = [judul, penulis]
         daftar_buku.append(data_buku)
         print(f"Buku '{judul}' berhasil ditambahkan!")
-def melihat_buku():
+def melihat_buku(daftar_buku):
     print("\n","="*10,"Data buku: ","="*10,"\n")
     if not buku:
         print("Belum ada koleksi buku di perpustakaan.")
@@ -32,6 +32,17 @@ def melihat_buku():
         for index, data in enumerate(buku, start=1):
             print(f"{index:<4} | {data[0]:<25} | {data[1]:<15}")
             print("=" * 50)
+def mencari_buku(daftar_buku):
+    if not buku:
+        print("Belum ada buku untuk dicari.")
+    dicari = input("Masukkan judul/kata kunci buku: ").lower().strip()
+    hasil = [data for data in buku if dicari in data[0].lower()]
+    if hasil:
+        print(f"\nDitemukan {len(hasil)} buku:")
+        for index, data in enumerate(hasil, start=1):
+            print(f"{index}. {data[0]} (Penulis: {data[1]})")
+    else:
+        print("Buku tidak ditemukan.")
 buku = []
 
 while True:
@@ -43,21 +54,10 @@ while True:
         tambah_buku(buku)
     # 2. Melihat daftar buku
     elif pilihan == "2":
-        melihat_buku()
+        melihat_buku(buku)
     # 3. Mencari buku
     elif pilihan == "3":
-        if not buku:
-            print("Belum ada buku untuk dicari.")
-            continue
-        dicari = input("Masukkan judul/kata kunci buku: ").lower().strip()
-        hasil = [data for data in buku if dicari in data[0].lower()]
-
-        if hasil:
-            print(f"\nDitemukan {len(hasil)} buku:")
-            for index, data in enumerate(hasil, start=1):
-                print(f"{index}. {data[0]} (Penulis: {data[1]})")
-        else:
-            print("Buku tidak ditemukan.")
+        mencari_buku(buku)
     # 4. Menghapus buku
     elif pilihan == "4":
         if not buku:
