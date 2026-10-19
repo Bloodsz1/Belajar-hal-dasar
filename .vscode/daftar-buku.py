@@ -46,8 +46,8 @@ def mencari_buku(daftar_buku):
 def hapus_buku(daftar_buku):
     if not buku:
         print("Belum ada buku untuk dihapus")
-
-    print("\nDaftar Buku:")
+    else:
+        print("\nDaftar Buku:")
     for index, data in enumerate(buku, start=1):
         print(f"{index}. {data[0]} - {data[1]}")
 
@@ -60,6 +60,38 @@ def hapus_buku(daftar_buku):
             print("Masukkan nomor yang tepat!")
     except ValueError:
         print("Harap masukkan nomor dalam bentuk angka!")
+def edit_buku(daftar_buku):  
+    if not buku:
+        print("Belum ada buku untuk diedit")
+    else:    
+        print("\nDaftar Buku:")
+    for index, data in enumerate(buku, start=1):
+        print(f"{index}. {data[0]} - {data[1]}")
+    try:
+        edit = int(input("\nMasukkan nomor buku yang ingin diedit: "))
+        if 1 <= edit <= len(buku):
+            index_buku = edit - 1
+            print("\nTekan enter jika ingin memperhatikan data lama")
+
+            judul_baru = input("Masukkan judul buku yg baru").strip()
+            penulis_baru = input("Masukkan nama penulis baru king").strip()
+
+            if judul_baru:
+                buku[index_buku][0]= judul_baru
+            if penulis_baru:
+                buku[index_buku][1]= penulis_baru
+                    
+            print(f"Buku {buku[index_buku[0]]} berhasil diedit")
+        else:
+            print("Buku tidak ditemukan")
+                    
+    except ValueError:
+        print("Harap masukkan nomor buku dengan benar")
+def keluar_program(daftar_buku):    
+    if daftar_buku == "6":
+        print("\nTerima kasih telah menggunakan program perpustakaan!")
+    else :
+        print ("pilihan tidak tersedia")
 buku = []
 
 while True:
@@ -78,42 +110,12 @@ while True:
     # 4. Menghapus buku
     elif pilihan == "4":
         hapus_buku(buku)
-
     # 5. Mengedit buku
     elif pilihan == "5":
-        if not buku:
-            print("Belum ada buku untuk diedit")
-            continue
-        
-        print("\nDaftar Buku:")
-        for index, data in enumerate(buku, start=1):
-            print(f"{index}. {data[0]} - {data[1]}")
-        try:
-            edit = int(input("\nMasukkan nomor buku yang ingin diedit: "))
-            if 1 <= edit <= len(buku):
-                index_buku = edit - 1
-                print("\nTekan enter jika ingin memperhatikan data lama")
-
-                judul_baru = input("Masukkan judul buku yg baru").strip()
-                penulis_baru = input("Masukkan nama penulis baru king").strip()
-
-                if judul_baru:
-                    buku[index_buku][0]= judul_baru
-                if penulis_baru:
-                    buku[index_buku][1]= penulis_baru
-                    
-                print(f"Buku {buku[index_buku[0]]} berhasil diedit")
-            else:
-                print("Buku tidak ditemukan")
-                    
-        except ValueError:
-            print("Harap masukkan nomor buku dengan benar")
+        edit_buku(buku)
 
     # 6. Keluar dari program
     elif pilihan == "6":
-        print("\nTerima kasih telah menggunakan program perpustakaan!")
+        keluar_program(buku)
         break
-    else :
-        print ("pilihan tidak tersedia")
-
 print ("Program selesai")
