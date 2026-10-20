@@ -26,6 +26,7 @@ def melihat_buku(daftar_buku):
     print("\n","="*10,"Data buku: ","="*10,"\n")
     if not daftar_buku:
         print("Belum ada koleksi buku di perpustakaan.")
+        return
     else:
         print("\n" + "=" * 50)
         print(f"{'No':<4} | {'Judul Buku':<25} | {'Penulis':<15}")
@@ -36,6 +37,7 @@ def melihat_buku(daftar_buku):
 def mencari_buku(daftar_buku):
     if not daftar_buku:
         print("Belum ada buku untuk dicari.")
+        return
     dicari = input("Masukkan judul/kata kunci buku: ").lower().strip()
     hasil = [data for data in daftar_buku if dicari in data[0].lower()]
     if hasil:
@@ -47,6 +49,7 @@ def mencari_buku(daftar_buku):
 def hapus_buku(daftar_buku):
     if not daftar_buku:
         print("Belum ada buku untuk dihapus")
+        return
     else:
         print("\nDaftar Buku:")
     for index, data in enumerate(daftar_buku, start=1):
@@ -64,6 +67,7 @@ def hapus_buku(daftar_buku):
 def edit_buku(daftar_buku):  
     if not daftar_buku:
         print("Belum ada buku untuk diedit")
+        return
     else:    
         print("\nDaftar Buku:")
     for index, data in enumerate(daftar_buku, start=1):
@@ -93,11 +97,11 @@ def keluar_program(daftar_buku):
         print("\nTerima kasih telah menggunakan program perpustakaan!")
     else :
         print ("pilihan tidak tersedia")
-        
+
 buku = []
 
 while True:
-    system.os print("clear")
+    os._system("clear")
     tampilkan_menu()
     pilihan = input("Masukkan pilihan (1-6): ").strip()
 
