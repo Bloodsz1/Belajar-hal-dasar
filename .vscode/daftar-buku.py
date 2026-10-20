@@ -1,3 +1,4 @@
+import os
 def tampilkan_menu():
     ''' Funsi tampilkan menu '''
     print("\n" + "=" * 35)
@@ -23,15 +24,15 @@ def tambah_buku(daftar_buku):
         print(f"Buku '{judul}' berhasil ditambahkan!")
 def melihat_buku(daftar_buku):
     print("\n","="*10,"Data buku: ","="*10,"\n")
-    if not buku:
+    if not daftar_buku:
         print("Belum ada koleksi buku di perpustakaan.")
     else:
         print("\n" + "=" * 50)
         print(f"{'No':<4} | {'Judul Buku':<25} | {'Penulis':<15}")
         print("-" * 50)
-        for index, data in enumerate(buku, start=1):
+        for index, data in enumerate(daftar_buku, start=1):
             print(f"{index:<4} | {data[0]:<25} | {data[1]:<15}")
-            print("=" * 50)
+        print("=" * 50)
 def mencari_buku(daftar_buku):
     if not buku:
         print("Belum ada buku untuk dicari.")
@@ -95,6 +96,7 @@ def keluar_program(daftar_buku):
 buku = []
 
 while True:
+    system.os print("clear")
     tampilkan_menu()
     pilihan = input("Masukkan pilihan (1-6): ").strip()
 
