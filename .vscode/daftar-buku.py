@@ -82,9 +82,9 @@ def edit_buku(daftar_buku):
             penulis_baru = input("Masukkan nama penulis baru king").strip()
 
             if judul_baru:
-                daftar_buku[index_buku]= judul_baru
+                daftar_buku[index_buku][0]= judul_baru
             if penulis_baru:
-                daftar_buku[index_buku]= penulis_baru
+                daftar_buku[index_buku][1]= penulis_baru
                     
             print(f"Buku {daftar_buku[index_buku][0]} berhasil diedit")
         else:
@@ -119,7 +119,7 @@ while True:
         edit_buku(buku)
     # 6. Keluar dari program
     elif pilihan == "6":
-        keluar_program(b)
+        keluar_program()
         break
     else:
         print ("Menu tidak ditemukan")
