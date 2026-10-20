@@ -95,6 +95,9 @@ def edit_buku(daftar_buku):
 def keluar_program():    
         print("\nTerima kasih telah menggunakan program perpustakaan!")
 
+def tunggu_enter():
+    input("\nTekan Enter untuk kembali ke menu...")
+
 buku = []
 
 while True:
@@ -105,22 +108,29 @@ while True:
     # 1. Menambahkan buku
     if pilihan == "1":
         tambah_buku(buku)
+        tunggu_enter()
     # 2. Melihat daftar buku
     elif pilihan == "2":
         melihat_buku(buku)
+        tunggu_enter()
     # 3. Mencari buku
     elif pilihan == "3":
         mencari_buku(buku)
+        tunggu_enter()
     # 4. Menghapus buku
     elif pilihan == "4":
         hapus_buku(buku)
+        tunggu_enter()
     # 5. Mengedit buku
     elif pilihan == "5":
         edit_buku(buku)
+        tunggu_enter()
     # 6. Keluar dari program
     elif pilihan == "6":
         keluar_program()
         break
     else:
         print ("Menu tidak ditemukan")
+        tunggu_enter()
+        
 print ("Program selesai")
