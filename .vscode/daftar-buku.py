@@ -34,10 +34,10 @@ def melihat_buku(daftar_buku):
             print(f"{index:<4} | {data[0]:<25} | {data[1]:<15}")
         print("=" * 50)
 def mencari_buku(daftar_buku):
-    if not buku:
+    if not daftar_buku:
         print("Belum ada buku untuk dicari.")
     dicari = input("Masukkan judul/kata kunci buku: ").lower().strip()
-    hasil = [data for data in buku if dicari in data[0].lower()]
+    hasil = [data for data in daftar_buku if dicari in data[0].lower()]
     if hasil:
         print(f"\nDitemukan {len(hasil)} buku:")
         for index, data in enumerate(hasil, start=1):
@@ -45,32 +45,32 @@ def mencari_buku(daftar_buku):
     else:
         print("Buku tidak ditemukan.")
 def hapus_buku(daftar_buku):
-    if not buku:
+    if not daftar_buku:
         print("Belum ada buku untuk dihapus")
     else:
         print("\nDaftar Buku:")
-    for index, data in enumerate(buku, start=1):
+    for index, data in enumerate(daftar_buku, start=1):
         print(f"{index}. {data[0]} - {data[1]}")
 
     try:
         hapus = int(input("\nMasukkan nomor buku yang ingin dihapus: "))
-        if 1 <= hapus <= len(buku):
-            buku_terhapus = buku.pop(hapus - 1)
+        if 1 <= hapus <= len(daftar_buku):
+            buku_terhapus = daftar_buku.pop(hapus - 1)
             print(f"Buku '{buku_terhapus[0]}' berhasil dihapus!")
         else:
             print("Masukkan nomor yang tepat!")
     except ValueError:
         print("Harap masukkan nomor dalam bentuk angka!")
 def edit_buku(daftar_buku):  
-    if not buku:
+    if not daftar_buku:
         print("Belum ada buku untuk diedit")
     else:    
         print("\nDaftar Buku:")
-    for index, data in enumerate(buku, start=1):
+    for index, data in enumerate(daftar_buku, start=1):
         print(f"{index}. {data[0]} - {data[1]}")
     try:
         edit = int(input("\nMasukkan nomor buku yang ingin diedit: "))
-        if 1 <= edit <= len(buku):
+        if 1 <= edit <= len(daftar_buku):
             index_buku = edit - 1
             print("\nTekan enter jika ingin memperhatikan data lama")
 
@@ -78,11 +78,11 @@ def edit_buku(daftar_buku):
             penulis_baru = input("Masukkan nama penulis baru king").strip()
 
             if judul_baru:
-                buku[index_buku][0]= judul_baru
+                daftar_buku[index_buku][0]= judul_baru
             if penulis_baru:
-                buku[index_buku][1]= penulis_baru
+                daftar_buku[index_buku][1]= penulis_baru
                     
-            print(f"Buku {buku[index_buku[0]]} berhasil diedit")
+            print(f"Buku {daftar_buku[index_buku[0]]} berhasil diedit")
         else:
             print("Buku tidak ditemukan")
                     
@@ -93,6 +93,7 @@ def keluar_program(daftar_buku):
         print("\nTerima kasih telah menggunakan program perpustakaan!")
     else :
         print ("pilihan tidak tersedia")
+        
 buku = []
 
 while True:
