@@ -39,6 +39,8 @@ def mencari_buku(daftar_buku):
         print("Belum ada buku untuk dicari.")
         return
     dicari = input("Masukkan judul/kata kunci buku: ").lower().strip()
+    if not dicari:
+        return
     hasil = [data for data in daftar_buku if dicari in data[0].lower()]
     if hasil:
         print(f"\nDitemukan {len(hasil)} buku:")
@@ -76,7 +78,7 @@ def edit_buku(daftar_buku):
         edit = int(input("\nMasukkan nomor buku yang ingin diedit: "))
         if 1 <= edit <= len(daftar_buku):
             index_buku = edit - 1
-            print("\nTekan enter jika ingin memperhatikan data lama")
+            print("\nTekan enter jika ingin mempertahankan data lama")
 
             judul_baru = input("Masukkan judul buku yg baru").strip()
             penulis_baru = input("Masukkan nama penulis baru king").strip()
@@ -101,7 +103,7 @@ def tunggu_enter():
 buku = []
 
 while True:
-    os.system("clear")
+    os.system("cls" if os.name == "nt" else "clear")
     tampilkan_menu()
     pilihan = input("Masukkan pilihan (1-6): ").strip()
 
@@ -132,5 +134,5 @@ while True:
     else:
         print ("Menu tidak ditemukan")
         tunggu_enter()
-        
+
 print ("Program selesai")
