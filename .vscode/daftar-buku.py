@@ -92,11 +92,8 @@ def edit_buku(daftar_buku):
                     
     except ValueError:
         print("Harap masukkan nomor buku dengan benar")
-def keluar_program(daftar_buku):    
-    if daftar_buku == "6":
+def keluar_program():    
         print("\nTerima kasih telah menggunakan program perpustakaan!")
-    else :
-        print ("pilihan tidak tersedia")
 
 buku = []
 
@@ -122,6 +119,8 @@ while True:
         edit_buku(buku)
     # 6. Keluar dari program
     elif pilihan == "6":
-        keluar_program(buku)
+        keluar_program(b)
         break
+    else:
+        print ("Menu tidak ditemukan")
 print ("Program selesai")
