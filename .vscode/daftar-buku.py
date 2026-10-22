@@ -23,6 +23,7 @@ def tambah_buku(daftar_buku):
         daftar_buku.append(data_buku)
         print(f"Buku '{judul}' berhasil ditambahkan!")
 def melihat_buku(daftar_buku):
+    ''' Fungsi melihat buku'''
     print("\n","="*10,"Data buku: ","="*10,"\n")
     if not daftar_buku:
         print("Belum ada koleksi buku di perpustakaan.")
