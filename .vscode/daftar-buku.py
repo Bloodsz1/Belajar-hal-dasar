@@ -114,6 +114,7 @@ def hapus_buku(daftar_buku):
         if 1 <= hapus <= len(daftar_buku):
             buku_terhapus = daftar_buku.pop(hapus - 1)
             print(f"Buku '{buku_terhapus[0]}' berhasil dihapus!")
+            return True
         else:
             print("Masukkan nomor yang tepat!")
     except ValueError:
@@ -133,8 +134,8 @@ def edit_buku(daftar_buku):
             index_buku = edit - 1
             print("\nTekan enter jika ingin mempertahankan data lama")
 
-            judul_baru = input("Masukkan judul buku yg baru").strip()
-            penulis_baru = input("Masukkan nama penulis baru king").strip()
+            judul_baru = input("Masukkan judul buku yg baru: ").strip()
+            penulis_baru = input("Masukkan nama penulis barunya king: ").strip()
 
             if judul_baru:
                 daftar_buku[index_buku][0]= judul_baru
