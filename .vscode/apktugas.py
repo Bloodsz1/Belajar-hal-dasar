@@ -1,12 +1,56 @@
 # Program Latihan Membuat Aplikasi Daftar Tugas Sederhana
 from datetime import datetime
+from pathlib import Path
 import os
+import json
 
+FILE_TUGAS = Path(__file__).resolve().parent / "tugas.json"
+
+def muat_tugas():
+    """Membaca data tugas dari file JSON."""
+    if not FILE_TUGAS.exists():
+        return []
+
+    try:
+        with open(FILE_TUGAS, "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+        # Memastikan format data sesuai
+        if not isinstance(data, list):
+            raise ValueError("Format data harus berupa list.")
+
+        for tugas in data:
+            for item in data:
+                if not isinstance(item, dict):
+                    raise ValueError("Format data tugas tidak valid.")
+
+        return data
+
+    except (json.JSONDecodeError, ValueError, OSError) as error:
+        print(f"Gagal membaca data tugas: {error}")
+        print("Periksa file tugas.json sebelum melanjutkan.")
+        raise SystemExit(1)
+def simpan_tugas(daftar_tugas):
+    """Menyimpan daftar tugas ke file JSON."""
+    file_sementara = FILE_TUGAS.with_suffix(".tmp")
+
+    try:
+        with open(file_sementara, "w", encoding="utf-8") as file:
+            json.dump(daftar_tugas, file, indent=4, ensure_ascii=False)
+
+        # Mengganti file lama setelah penulisan selesai
+        os.replace(file_sementara, FILE_TUGAS)
+        return True
+
+    except (OSError, TypeError, ValueError) as error:
+        print(f"Gagal menyimpan data: {error}")
+        return False
 def tunggu_enter():
     input("\nTekan enter untuk kembali ke menu")
 def bersihkan_terminal():
     os.system("cls" if os.name == "nt" else "clear")
-tugas = []
+tugas = muat_tugas()
+
 while True:
     bersihkan_terminal()
     print("\n"*2)
@@ -34,7 +78,7 @@ while True:
         while True:
             deadline_input = input("Masukkan deadline tugas (YYYY-MM-DD): ").strip()
             try:
-                deadline = datetime.strptime(deadline_input, "%Y-%m-%d").date()
+                deadline = datetime.strptime(deadline_input, "%Y-%m-%d").date().isoformat()
                 break
             except ValueError:
                 print("Format tanggal tidak valid. Harap masukkan dalam format YYYY-MM-DD.")
@@ -59,6 +103,7 @@ while True:
             "prioritas": prioritas
         }
         tugas.append(data_tugas)
+        simpan_tugas(tugas)
         print("Tugas berhasil ditambahkan:", nama_tugas)
         tunggu_enter()
         continue
@@ -96,6 +141,7 @@ while True:
                 yakin = input("Apakah Anda yakin ingin menghapus tugas ini? (y/n): ").strip().lower()
                 if yakin == 'y':
                     del tugas[index]
+                    simpan_tugas(tugas)
                     print("Tugas berhasil dihapus:", hapus_nomor)
                 else:
                     print("Penghapusan tugas dibatalkan.")
@@ -119,7 +165,7 @@ while True:
                 while True:
                     deadline_baru_input = input("Masukkan deadline tugas baru (YYYY-MM-DD): ").strip()
                     try:
-                        deadline_baru = datetime.strptime(deadline_baru_input, "%Y-%m-%d").date()
+                        deadline_baru = datetime.strptime(deadline_baru_input, "%Y-%m-%d").date().isoformat()
                         break
                     except ValueError:
                         print("Format tanggal tidak valid. Harap masukkan dalam format YYYY-MM-DD.")
@@ -141,6 +187,7 @@ while True:
                     tugas[index]["prioritas"] = "rendah"
                 else:
                     print("Input tidak valid. Prioritas tugas tidak diubah.")
+                    simpan_tugas(tugas)
                 print("Tugas berhasil diedit:", edit_nomor)
             else:
                 print("Nomor tugas tidak valid")
@@ -162,6 +209,7 @@ while True:
                 else:
                     tugas[index]["status"] = "selesai"
                     print("Tugas berhasil ditandai sebagai selesai:", selesai_nomor)
+                    simpan_tugas(tugas)
             else:
                 print("Nomor tugas tidak valid")
         except (IndexError, ValueError):
@@ -264,6 +312,7 @@ while True:
                 if tugas[index]["status"] == "selesai":
                     tugas[index]["status"] = "belum"
                     print("Status tugas berhasil dibatalkan menjadi belum selesai:", batal_nomor)
+                    simpan_tugas(tugas)
                 else:
                     print("Tugas ini belum ditandai sebagai selesai.")
         except (IndexError, ValueError):
