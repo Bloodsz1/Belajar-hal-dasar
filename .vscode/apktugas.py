@@ -1,7 +1,12 @@
 # Program Latihan Membuat Aplikasi Daftar Tugas Sederhana
 from datetime import datetime
+import os
+
+def tunggu_enter():
+    input("\nTekan enter untuk kembali ke menu")
 tugas = []
 while True:
+    os.system("cls" if os.name == "nt" else "clear")
     print("\n"*2)
     print("\n====== DAFTAR TUGAS ======")
     print("1. Tambah Tugas")
@@ -17,11 +22,13 @@ while True:
     print("11. Keluar")
 
     pilihan = input("Pilih menu (1-11):").strip()
+    tunggu_enter()
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
         if not nama_tugas:
             print("nama tugas tidak boleh kosong")
+            tunggu_enter()
             continue
         while True:
             deadline_input = input("Masukkan deadline tugas (YYYY-MM-DD): ").strip()
@@ -52,6 +59,9 @@ while True:
         }
         tugas.append(data_tugas)
         print("Tugas berhasil ditambahkan:", nama_tugas)
+        tunggu_enter()
+        continue
+
 #Pengguna melihat daftar tugas
     elif pilihan == "2":
         if not tugas:
@@ -63,11 +73,14 @@ while True:
             for item in tugas:
                 print(nomor,item["nama"],"-",item["status"],"-",item["prioritas"],"-",item["deadline"])
                 nomor += 1
+        tunggu_enter()
+        continue
 #Pengguna menghapus tugas
     elif pilihan == "3":
         try:
             if not tugas:
                 print("Tidak ada tugas yang tersedia")
+                tunggu_enter()
                 continue
             hapus_nomor = int(input("\nMasukkan nomor tugas yang ingin dihapus: ").strip())
             if 1 <= hapus_nomor <= len(tugas):
@@ -82,6 +95,8 @@ while True:
                 print("Nomor tugas tidak valid")
         except (IndexError, ValueError):
             print("Input tidak valid. Harap masukkan nomor tugas yang benar.")
+        tunggu_enter()
+        continue
 #Pengguna mengedit tugas
     elif pilihan == "4":
         try:
@@ -123,6 +138,8 @@ while True:
                 print("Nomor tugas tidak valid")
         except (IndexError, ValueError):
             print("Tugas gagal diedit. Nomor tugas tidak valid.")
+        tunggu_enter()
+        continue
 #Pengguna menandai tugas sebagai selesai
     elif pilihan == "5":
         try:
@@ -141,11 +158,14 @@ while True:
                 print("Nomor tugas tidak valid")
         except (IndexError, ValueError):
             print("Tugas gagal ditandai sebagai selesai. Nomor tugas tidak valid.")
+        tunggu_enter()
+        continue
 #Pengguna mencari tugas
     elif pilihan == "6":
         keyword = input("\nMasukkan keyword tugas yang ingin dicari: ").strip()
         if not keyword:
             print("Keyword tidak boleh kosong")
+            tunggu_enter()
             continue
         ditemukan = False
         for item in tugas:
@@ -154,6 +174,8 @@ while True:
                 ditemukan = True
         if not ditemukan:
             print("Tugas tidak ditemukan")
+        tunggu_enter()
+        continue
 #Pengguna memfilter tugas berdasarkan prioritas
     elif pilihan == "7":
         while True:
@@ -164,6 +186,7 @@ while True:
             prioritas_filter = input("Masukkan prioritas tugas (1/2/3): ").strip()
             if prioritas_filter not in ["1","2","3"]:
                 print("Input tidak boleh kosong. Harap masukkan 1, 2, atau 3.")
+                tunggu_enter()
                 continue
             break
         if prioritas_filter == "1":
@@ -179,6 +202,8 @@ while True:
                 ditemukan = True
         if not ditemukan:
             print("Tidak ada tugas dengan prioritas", prioritas)
+        tunggu_enter()
+        continue
 #Pengguna memfilter tugas berdasarkan status
     elif pilihan == "8":
         while True:
@@ -188,6 +213,7 @@ while True:
             status_filter = input("Masukkan status tugas (1/2): ").strip()
             if status_filter not in ["1", "2"]:
                 print("Input tidak valid. Harap masukkan 1 atau 2.")
+                tunggu_enter
                 continue
             break
         if status_filter == "1":
@@ -201,6 +227,8 @@ while True:
                 ditemukan = True
         if not ditemukan:
             print("Tidak ada tugas dengan status", status)
+        tunggu_enter()
+        continue
 #Pengguna ingin melihat statistik tugas
     elif pilihan == "9":
         print("\n" + "=" * 5 + " STATISTIK TUGAS " + "=" * 5)
@@ -213,10 +241,13 @@ while True:
         print("tugas yg selesai: ", selesai)
         belum = total_tugas - selesai 
         print("Tugas yg belum selesai: ", belum)
+        tunggu_enter()
+        continue
 #Pengguna ingin membatalkan status selesai
     elif pilihan == "10":
         if not tugas:
             print("Tidak ada tugas yang tersedia")
+            tunggu_enter()
             continue
         try:
             batal_nomor = int(input("\nMasukkan nomor tugas yang ingin dibatalkan status selesai: ").strip())
@@ -229,6 +260,8 @@ while True:
                     print("Tugas ini belum ditandai sebagai selesai.")
         except (IndexError, ValueError):
                 print("Nomor tugas tidak valid")
+        tunggu_enter()
+        continue
 
 #Pengguna keluar dari program
     elif pilihan == "11":
