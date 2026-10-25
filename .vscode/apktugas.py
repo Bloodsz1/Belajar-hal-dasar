@@ -4,25 +4,26 @@ import os
 
 def tunggu_enter():
     input("\nTekan enter untuk kembali ke menu")
+def bersihkan_terminal():
+    os.system("cls" if os.name == "nt" else "clear")
 tugas = []
 while True:
-    os.system("cls" if os.name == "nt" else "clear")
+    bersihkan_terminal()
     print("\n"*2)
     print("\n====== DAFTAR TUGAS ======")
-    print("1. Tambah Tugas")
-    print("2. Lihat Tugas")
-    print("3. Hapus Tugas")
-    print("4. Edit Tugas")
-    print("5. Tandai Selesai")
-    print("6. Cari Tugas")
-    print("7. Filter tugas berdasarkan prioritas")
-    print("8. Filter tugas berdasarkan status")
-    print("9. Statistik tugas")
+    print("1.  Tambah Tugas")
+    print("2.  Lihat Tugas")
+    print("3.  Hapus Tugas")
+    print("4.  Edit Tugas")
+    print("5.  Tandai Selesai")
+    print("6.  Cari Tugas")
+    print("7.  Filter tugas berdasarkan prioritas")
+    print("8.  Filter tugas berdasarkan status")
+    print("9.  Statistik tugas")
     print("10. Batalkan status selesai")
     print("11. Keluar")
 
     pilihan = input("Pilih menu (1-11):").strip()
-    tunggu_enter()
 #Pengguna memasukkan tugas
     if pilihan == "1":
         nama_tugas = input("\nMasukkan nama tugas: ").strip()
@@ -82,6 +83,13 @@ while True:
                 print("Tidak ada tugas yang tersedia")
                 tunggu_enter()
                 continue
+            else:
+                print(f"\nDaftar Tugas (Total: {len(tugas)}):")
+                print("\nDaftar Tugas:")
+                nomor = 1
+                for item in tugas:
+                    print(nomor,item["nama"],"-",item["status"],"-",item["prioritas"],"-",item["deadline"])
+                    nomor += 1
             hapus_nomor = int(input("\nMasukkan nomor tugas yang ingin dihapus: ").strip())
             if 1 <= hapus_nomor <= len(tugas):
                 index = hapus_nomor - 1
