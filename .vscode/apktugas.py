@@ -154,6 +154,15 @@ while True:
 #Pengguna mengedit tugas
     elif pilihan == "4":
         try:
+            if tugas:
+                print(f"\nDaftar Tugas (Total: {len(tugas)}):")
+                print("\nDaftar Tugas:")
+                nomor = 1
+                for item in tugas:
+                    print(nomor,item["nama"],"-",item["status"],"-",item["prioritas"],"-",item["deadline"])
+                    nomor += 1
+            else :
+                print("Tugas belum ditambahkan")
             edit_nomor = int(input("\nMasukkan nomor tugas yang ingin diedit: ").strip())
             if 1 <= edit_nomor <= len(tugas):
                 index = edit_nomor - 1
@@ -201,6 +210,13 @@ while True:
             if not tugas:
                 print("Tidak ada tugas yang tersedia")
                 continue
+            else:
+                print(f"\nDaftar Tugas (Total: {len(tugas)}):")
+                print("\nDaftar Tugas:")
+                nomor = 1
+                for item in tugas:
+                    print(nomor,item["nama"],"-",item["status"],"-",item["prioritas"],"-",item["deadline"])
+                    nomor += 1
             selesai_nomor = int(input("\nMasukkan nomor tugas yang telah selesai: ").strip())
             if 1 <= selesai_nomor <= len(tugas):
                 index = selesai_nomor - 1
