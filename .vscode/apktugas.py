@@ -20,9 +20,8 @@ def muat_tugas():
             raise ValueError("Format data harus berupa list.")
 
         for tugas in data:
-            for item in data:
-                if not isinstance(item, dict):
-                    raise ValueError("Format data tugas tidak valid.")
+            if not isinstance(tugas, dict):
+                raise ValueError("Format data tugas tidak valid.")
 
         return data
 
@@ -196,8 +195,8 @@ while True:
                     tugas[index]["prioritas"] = "rendah"
                 else:
                     print("Input tidak valid. Prioritas tugas tidak diubah.")
-                    simpan_tugas(tugas)
                 print("Tugas berhasil diedit:", edit_nomor)
+                simpan_tugas(tugas)
             else:
                 print("Nomor tugas tidak valid")
         except (IndexError, ValueError):
@@ -285,7 +284,7 @@ while True:
             status_filter = input("Masukkan status tugas (1/2): ").strip()
             if status_filter not in ["1", "2"]:
                 print("Input tidak valid. Harap masukkan 1 atau 2.")
-                tunggu_enter
+                tunggu_enter()
                 continue
             break
         if status_filter == "1":
