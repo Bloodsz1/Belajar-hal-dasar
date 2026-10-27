@@ -1,4 +1,4 @@
-plan
+Ini adalah secuil dari apa yang harus saya lakukan 
 - Konsisten belajar dan praktek python setiap hari
 - Memahami setiap baris kode yang saya tulis
 - Bisa membuat AI agent
