@@ -1,20 +1,10 @@
-# 📋 Program Tugas Sederhana
+# 📋 Program Praktek Sederhana
 
-Program **Task Manager sederhana berbasis Python** yang dibuat sebagai latihan belajar pemrograman Python.
+Program sederhana yang gue buat sebagai latihan dasar pemrograman Python.
 
 Project ini dibuat dari nol secara bertahap untuk memahami konsep dasar Python sekaligus menerapkannya dalam sebuah program yang bisa digunakan.
 
-## 🚀 Fitur
-
-Saat ini program memiliki beberapa fitur:
-
-- ➕ Menambahkan tugas
-- 📋 Melihat daftar tugas
-- 🗑️ Menghapus tugas
-- ✏️ Mengedit nama tugas
-- ✅ Menandai tugas sebagai selesai
-- 🔎 Mencari tugas berdasarkan keyword
-- 🛡️ Validasi input menggunakan `try-except`
+## CRUD
 
 ## 🧠 Konsep Python yang Dipelajari
 
@@ -35,9 +25,12 @@ Dalam project ini saya menerapkan beberapa konsep dasar Python:
 - `try-except`
 - Boolean
 - Basic CRUD logic
+- Fungsi
+- Library JSON
 
 ## 🛠️ Teknologi
 
 - Python 3
 - Visual Studio Code
 - Git & GitHub
+- MacBook Bekas :)
