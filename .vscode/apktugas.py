@@ -162,6 +162,8 @@ while True:
                     nomor += 1
             else :
                 print("Tugas belum ditambahkan")
+                tunggu_enter()
+                continue
             edit_nomor = int(input("\nMasukkan nomor tugas yang ingin diedit: ").strip())
             if 1 <= edit_nomor <= len(tugas):
                 index = edit_nomor - 1
@@ -208,6 +210,7 @@ while True:
         try:
             if not tugas:
                 print("Tidak ada tugas yang tersedia")
+                tunggu_enter()
                 continue
             else:
                 print(f"\nDaftar Tugas (Total: {len(tugas)}):")
@@ -330,6 +333,8 @@ while True:
                     simpan_tugas(tugas)
                 else:
                     print("Tugas ini belum ditandai sebagai selesai.")
+            else:
+                print("Nomor tugas tidak valid")
         except (IndexError, ValueError):
                 print("Nomor tugas tidak valid")
         tunggu_enter()
