@@ -3,54 +3,7 @@ import os
 from pathlib import Path
 from models import Buku, Perpustakaan
 
-FILE_BUKU = Path(__file__).resolve().parent / "buku_tes.json"
-
-
-def muat_buku():
-    """Membaca data buku dari file JSON."""
-    if not FILE_BUKU.exists():
-        return []
-
-    try:
-        with open(FILE_BUKU, "r", encoding="utf-8") as file:
-            data = json.load(file)
-
-        # Memastikan format data sesuai
-        if not isinstance(data, list):
-            raise TypeError("Format data harus berupa list.")
-
-        for buku in data:
-            if (
-                not isinstance(buku, list)
-                or len(buku) != 2
-                or not all(isinstance(item, str) for item in buku)
-            ):
-                raise TypeError("Format data buku tidak valid.")
-
-        return data
-
-    except (json.JSONDecodeError, ValueError, OSError, TypeError) as error:
-        print(f"Gagal membaca data buku: {error}")
-        print("Periksa file buku.json sebelum melanjutkan.")
-        raise SystemExit(1)
-
-
-def simpan_buku(daftar_buku):
-    """Menyimpan daftar buku ke file JSON."""
-    file_sementara = FILE_BUKU.with_suffix(".tmp")
-
-    try:
-        with open(file_sementara, "w", encoding="utf-8") as file:
-            json.dump(daftar_buku, file, indent=4, ensure_ascii=False)
-
-        # Mengganti file lama setelah penulisan selesai
-        os.replace(file_sementara, FILE_BUKU)
-        return True
-
-    except (OSError, TypeError, ValueError) as error:
-        print(f"Gagal menyimpan data: {error}")
-        return False
-
+FILE_BUKU = Path(__file__).resolve().parent / "perpustakaan.json"
 
 def tampilkan_menu():
     """Funsi tampilkan menu"""
@@ -66,66 +19,72 @@ def tampilkan_menu():
     print("=" * 35)
 
 
-def tambah_buku(daftar_buku):
+def tambah_buku(perpustakaan):
     """Fungsi tambah buku"""
     judul = input("Judul buku: ").lower().strip()
     penulis = input("Penulis buku: ").lower().strip()
-
-    if judul == "" or penulis == "":
+    subjek = input("Subjek buku: ").lower().strip()
+    try:
+        tahun_terbit = int(input("Tahun terbit buku: ").strip())
+    except ValueError:
+        print("Tahun harus berupa angka!")
+        return False
+    if judul == "" or penulis == "" or subjek == "":
         print("data tidak boleh kosong")
         return False
-    else:
-        data_buku = [judul, penulis]
-        daftar_buku.append(data_buku)
+    buku = Buku(perpustakaan.id_berikutnya(), judul, penulis, subjek, tahun_terbit)
+    if perpustakaan.tambah_buku(buku):
         print(f"Buku '{judul}' berhasil ditambahkan!")
         return True
+    return False
 
 
-def melihat_buku(daftar_buku):
+def melihat_buku(perpustakaan):
     """Fungsi melihat buku"""
     print("\n", "=" * 10, "Data buku: ", "=" * 10, "\n")
-    if not daftar_buku:
+    if not perpustakaan.semua_buku():
         print("Belum ada koleksi buku di perpustakaan.")
         return
     else:
         print("\n" + "=" * 50)
         print(f"{'No':<4} | {'Judul Buku':<25} | {'Penulis':<15}")
         print("-" * 50)
-        for index, data in enumerate(daftar_buku, start=1):
-            print(f"{index:<4} | {data[0]:<25} | {data[1]:<15}")
+        for index, buku in enumerate(perpustakaan.semua_buku(), start=1):
+            print(f"{index:<4} | {buku.judul:<25} | {buku.penulis:<15}")
         print("=" * 50)
 
 
-def mencari_buku(daftar_buku):
-    if not daftar_buku:
+def mencari_buku(perpustakaan):
+    if not perpustakaan.semua_buku():
         print("Belum ada buku untuk dicari.")
         return False
     dicari = input("Masukkan judul/kata kunci buku: ").lower().strip()
     if not dicari:
         return
-    hasil = [data for data in daftar_buku if dicari in data[0].lower()]
+    hasil = [buku for buku in perpustakaan.semua_buku() if dicari in buku.judul.lower()]
     if hasil:
         print(f"\nDitemukan {len(hasil)} buku:")
-        for index, data in enumerate(hasil, start=1):
-            print(f"{index}. {data[0]} (Penulis: {data[1]})")
+        for index, buku in enumerate(hasil, start=1):
+            print(f"{index}. {buku.judul} (Penulis: {buku.penulis})")
     else:
         print("Buku tidak ditemukan.")
 
 
-def hapus_buku(daftar_buku):
-    if not daftar_buku:
+def hapus_buku(perpustakaan):
+    if not perpustakaan.semua_buku():
         print("Belum ada buku untuk dihapus")
         return False
     else:
         print("\nDaftar Buku:")
-    for index, data in enumerate(daftar_buku, start=1):
-        print(f"{index}. {data[0]} - {data[1]}")
+    for index, buku in enumerate(perpustakaan.semua_buku(), start=1):
+        print(f"{index}. {buku.judul} - {buku.penulis}")
 
     try:
         hapus = int(input("\nMasukkan nomor buku yang ingin dihapus: "))
-        if 1 <= hapus <= len(daftar_buku):
-            buku_terhapus = daftar_buku.pop(hapus - 1)
-            print(f"Buku '{buku_terhapus[0]}' berhasil dihapus!")
+        if 1 <= hapus <= len(perpustakaan.semua_buku()):
+            buku_terhapus = perpustakaan.semua_buku()[hapus - 1]
+            perpustakaan.hapus_buku(buku_terhapus.id)
+            print(f"Buku '{buku_terhapus.judul}' berhasil dihapus!")
             return True
         else:
             print("Masukkan nomor yang tepat!")
@@ -134,17 +93,17 @@ def hapus_buku(daftar_buku):
         return False
 
 
-def edit_buku(daftar_buku):
-    if not daftar_buku:
+def edit_buku(perpustakaan):
+    if not perpustakaan.semua_buku():
         print("Belum ada buku untuk diedit")
         return False
     else:
         print("\nDaftar Buku:")
-    for index, data in enumerate(daftar_buku, start=1):
-        print(f"{index}. {data[0]} - {data[1]}")
+    for index, buku in enumerate(perpustakaan.semua_buku(), start=1):
+        print(f"{index}. {buku.judul} - {buku.penulis}")
     try:
         edit = int(input("\nMasukkan nomor buku yang ingin diedit: "))
-        if 1 <= edit <= len(daftar_buku):
+        if 1 <= edit <= len(perpustakaan.semua_buku()):
             index_buku = edit - 1
             print("\nTekan enter jika ingin mempertahankan data lama")
 
@@ -152,11 +111,11 @@ def edit_buku(daftar_buku):
             penulis_baru = input("Masukkan nama penulis barunya king: ").strip()
 
             if judul_baru:
-                daftar_buku[index_buku][0] = judul_baru
+                perpustakaan.semua_buku()[index_buku].judul = judul_baru
             if penulis_baru:
-                daftar_buku[index_buku][1] = penulis_baru
+                perpustakaan.semua_buku()[index_buku].penulis = penulis_baru
 
-            print(f"Buku {daftar_buku[index_buku][0]} berhasil diedit")
+            print(f"Buku {perpustakaan.semua_buku()[index_buku].judul} berhasil diedit")
             return True
         else:
             print("Buku tidak ditemukan")
@@ -176,7 +135,8 @@ def tunggu_enter():
 
 
 def main():
-    buku = muat_buku()
+    perpustakaan = Perpustakaan()
+    perpustakaan.muat(FILE_BUKU)
 
     while True:
         os.system("cls" if os.name == "nt" else "clear")
@@ -185,26 +145,26 @@ def main():
 
         # 1. Menambahkan buku
         if pilihan == "1":
-            if tambah_buku(buku):
-                simpan_buku(buku)
+            if tambah_buku(perpustakaan):
+                perpustakaan.simpan(FILE_BUKU)
             tunggu_enter()
         # 2. Melihat daftar buku
         elif pilihan == "2":
-            melihat_buku(buku)
+            melihat_buku(perpustakaan)
             tunggu_enter()
         # 3. Mencari buku
         elif pilihan == "3":
-            mencari_buku(buku)
+            mencari_buku(perpustakaan)
             tunggu_enter()
         # 4. Menghapus buku
         elif pilihan == "4":
-            if hapus_buku(buku):
-                simpan_buku(buku)
+            if hapus_buku(perpustakaan):
+                perpustakaan.simpan(FILE_BUKU)
             tunggu_enter()
         # 5. Mengedit buku
         elif pilihan == "5":
-            if edit_buku(buku):
-                simpan_buku(buku)
+            if edit_buku(perpustakaan):
+                perpustakaan.simpan(FILE_BUKU)
             tunggu_enter()
         # 6. Keluar dari program
         elif pilihan == "6":

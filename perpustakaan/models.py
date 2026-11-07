@@ -80,25 +80,30 @@ class Perpustakaan:
             data = json.load(f)
         self.daftar_buku = [Buku(**d) for d in data]
 
+    def id_berikutnya(self):
+        if not self.daftar_buku:
+            return 1
+        return max(buku.id for buku in self.daftar_buku) + 1
 
 if __name__ == "__main__":
-    # semua kode tes ditulis menjorok (indentasi) di sini
     perpustakaan = Perpustakaan()
     perpustakaan.tambah_buku(Buku(1, "Bumi", "Tere Liye", "Fiksi", 2013))
     perpustakaan.tambah_buku(Buku(2, "Bulan", "Tere Liye", "Fiksi", 2014))
     perpustakaan.tambah_buku(Buku(3, "Matahari", "Tere Liye", "Fiksi", 2015))
     perpustakaan.tambah_buku(Buku(4, "Bintang", "Tere Liye", "Fiksi", 2016))
-    baru = Perpustakaan()
-    print(len(baru.semua_buku()))        # tebak: berapa?
-    baru.muat("buku_tes.json")
-    print(len(baru.semua_buku()))
+
     for buku in perpustakaan.semua_buku():
-        d = perpustakaan.cari_by_id(2).ke_dict()
-        print(d)
-        salinan = Buku(**d)
-        print(salinan)
         print(buku)
-        perpustakaan.simpan("buku_tes.json")
-        kosong = Perpustakaan()
-        kosong.muat("tidak_ada.json")        # tebak: error atau tidak?
-        print(len(kosong.semua_buku()))
+
+    d = perpustakaan.cari_by_id(2).ke_dict()
+    print(d)
+    print(Buku(**d))
+
+    print(perpustakaan.id_berikutnya())
+    print(Perpustakaan().id_berikutnya())
+
+    perpustakaan.simpan("buku_uji.json")
+    baru = Perpustakaan()
+    baru.muat("buku_uji.json")
+    print(len(baru.semua_buku()))
+        

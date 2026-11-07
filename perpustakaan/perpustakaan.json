@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "judul": "Bumi",
+        "penulis": "Tere Liye",
+        "subjek": "Fiksi",
+        "tahun_terbit": 2013
+    },
+    {
+        "id": 2,
+        "judul": "Bulan",
+        "penulis": "Tere Liye",
+        "subjek": "Fiksi",
+        "tahun_terbit": 2014
+    },
+    {
+        "id": 3,
+        "judul": "Matahari",
+        "penulis": "Tere Liye",
+        "subjek": "Fiksi",
+        "tahun_terbit": 2015
+    },
+    {
+        "id": 4,
+        "judul": "Bintang",
+        "penulis": "Tere Liye",
+        "subjek": "Fiksi",
+        "tahun_terbit": 2016
+    },
+    {
+        "id": 5,
+        "judul": "komet",
+        "penulis": "tere liye",
+        "subjek": "fiksi",
+        "tahun_terbit": 2017
+    }
+]
