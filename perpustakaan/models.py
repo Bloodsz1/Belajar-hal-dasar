@@ -22,6 +22,9 @@ class Buku:
             "tahun_terbit": self.tahun_terbit,
         }
 
+class DataRusakError(ValueError):
+    """File data ada, tapi isinya tidak bisa dipakai."""
+
 
 class Perpustakaan:
     def __init__(self):
@@ -76,9 +79,13 @@ class Perpustakaan:
     def muat(self, nama_file):
         if not os.path.exists(nama_file):
             return
-        with open(nama_file, "r", encoding="utf-8") as f:
-            data = json.load(f)
-        self.daftar_buku = [Buku(**d) for d in data]
+        try:
+            with open(nama_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            daftar = [Buku(**d) for d in data]
+        except (json.JSONDecodeError, TypeError, KeyError) as error:
+            raise DataRusakError(f"Isi file '{nama_file}' tidak valid: {error}") from error
+        self.daftar_buku = daftar
 
     def id_berikutnya(self):
         if not self.daftar_buku:
