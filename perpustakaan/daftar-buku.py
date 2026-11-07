@@ -20,9 +20,9 @@ def tampilkan_menu():
 
 def tambah_buku(perpustakaan):
     """Fungsi tambah buku"""
-    judul = input("Judul buku: ").lower().strip()
-    penulis = input("Penulis buku: ").lower().strip()
-    subjek = input("Subjek buku: ").lower().strip()
+    judul = input("Judul buku: ").strip()
+    penulis = input("Penulis buku: ").strip()
+    subjek = input("Subjek buku: ").strip()
     try:
         tahun_terbit = int(input("Tahun terbit buku: ").strip())
     except ValueError:
@@ -103,25 +103,21 @@ def edit_buku(perpustakaan):
     try:
         edit = int(input("\nMasukkan nomor buku yang ingin diedit: "))
         if 1 <= edit <= len(perpustakaan.semua_buku()):
-            index_buku = edit - 1
-            print("\nTekan enter jika ingin mempertahankan data lama")
+            buku_edit = perpustakaan.semua_buku()[edit - 1]
+            print("\nTekan Enter jika ingin mempertahankan data lama")
+            judul_baru = input("Masukkan judul buku yang baru: ").strip()
+            penulis_baru = input("Masukkan nama penulis yang baru: ").strip()
 
-            judul_baru = input("Masukkan judul buku yg baru: ").strip()
-            penulis_baru = input("Masukkan nama penulis barunya king: ").strip()
-
-            if judul_baru:
-                perpustakaan.semua_buku()[index_buku].judul = judul_baru
-            if penulis_baru:
-                perpustakaan.semua_buku()[index_buku].penulis = penulis_baru
-
-            print(f"Buku {perpustakaan.semua_buku()[index_buku].judul} berhasil diedit")
+            perpustakaan.edit_buku(buku_edit.id,
+                                   judul=judul_baru or None,
+                                   penulis=penulis_baru or None)
+            print(f"Buku '{buku_edit.judul}' berhasil diedit!")
             return True
         else:
-            print("Buku tidak ditemukan")
+            print("Masukkan nomor yang tepat!")
             return False
-
     except ValueError:
-        print("Harap masukkan nomor buku dengan benar")
+        print("Harap masukkan nomor dalam bentuk angka!")
         return False
 
 
