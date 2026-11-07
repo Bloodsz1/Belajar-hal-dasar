@@ -1,3 +1,7 @@
+import json
+import os
+
+
 class Buku:
     def __init__(self, id, judul, penulis, subjek, tahun_terbit):
         self.id = id
@@ -64,6 +68,18 @@ class Perpustakaan:
             buku.tahun_terbit = tahun_terbit
         return True
 
+    def simpan(self, nama_file):
+        data = [buku.ke_dict() for buku in self.daftar_buku]
+        with open(nama_file, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+
+    def muat(self, nama_file):
+        if not os.path.exists(nama_file):
+            return
+        with open(nama_file, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        self.daftar_buku = [Buku(**d) for d in data]
+
 
 if __name__ == "__main__":
     # semua kode tes ditulis menjorok (indentasi) di sini
@@ -72,9 +88,17 @@ if __name__ == "__main__":
     perpustakaan.tambah_buku(Buku(2, "Bulan", "Tere Liye", "Fiksi", 2014))
     perpustakaan.tambah_buku(Buku(3, "Matahari", "Tere Liye", "Fiksi", 2015))
     perpustakaan.tambah_buku(Buku(4, "Bintang", "Tere Liye", "Fiksi", 2016))
+    baru = Perpustakaan()
+    print(len(baru.semua_buku()))        # tebak: berapa?
+    baru.muat("buku_tes.json")
+    print(len(baru.semua_buku()))
     for buku in perpustakaan.semua_buku():
         d = perpustakaan.cari_by_id(2).ke_dict()
         print(d)
         salinan = Buku(**d)
         print(salinan)
         print(buku)
+        perpustakaan.simpan("buku_tes.json")
+        kosong = Perpustakaan()
+        kosong.muat("tidak_ada.json")        # tebak: error atau tidak?
+        print(len(kosong.semua_buku()))

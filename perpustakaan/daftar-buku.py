@@ -1,8 +1,9 @@
 import json
 import os
 from pathlib import Path
+from models import Buku, Perpustakaan
 
-FILE_BUKU = Path(__file__).resolve().parent / "buku.json"
+FILE_BUKU = Path(__file__).resolve().parent / "buku_tes.json"
 
 
 def muat_buku():
