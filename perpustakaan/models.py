@@ -1,5 +1,6 @@
 import json
 import os
+DAFTAR_SUBJEK = ["Fiksi", "Non-fiksi"]
 
 
 class Buku:

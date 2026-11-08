@@ -1,3 +1,16 @@
+"""
+gui.py - Tampilan grafis (GUI) untuk Sistem Perpustakaan.
+
+Cara pakai:
+    python gui.py
+
+File ini hanya mengurus TAMPILAN. Semua data dan aturan (tambah, cari, edit,
+hapus, simpan, muat) dikerjakan oleh class Perpustakaan di models.py.
+Bagian yang memanggil backend ditandai dengan komentar "# BACKEND:".
+
+Hanya memakai pustaka bawaan Python (tkinter), jadi tidak perlu instalasi.
+"""
+
 import math
 import sys
 import tkinter as tk
@@ -6,7 +19,7 @@ from pathlib import Path
 from tkinter import font as tkfont
 from tkinter import messagebox, ttk
 
-from models import Buku, Perpustakaan
+from models import DAFTAR_SUBJEK, Buku, Perpustakaan
 
 # Sama dengan file data yang dipakai versi terminal (daftar-buku.py).
 FILE_BUKU = Path(__file__).resolve().parent / "perpustakaan.json"
@@ -84,6 +97,15 @@ def warna_avatar(kunci):
     return AVATAR[indeks % len(AVATAR)]
 
 
+def samakan_subjek(teks):
+    """Mencocokkan subjek tanpa peduli huruf besar-kecil: 'fiksi' -> 'Fiksi'."""
+    bersih = str(teks).strip()
+    for pilihan in DAFTAR_SUBJEK:
+        if pilihan.lower() == bersih.lower():
+            return pilihan
+    return bersih
+
+
 def validasi_buku(judul, penulis, subjek, tahun_teks):
     """Memeriksa isian formulir.
 
@@ -99,8 +121,9 @@ def validasi_buku(judul, penulis, subjek, tahun_teks):
         return None, "Judul buku tidak boleh kosong."
     if not penulis:
         return None, "Nama penulis tidak boleh kosong."
-    if not subjek:
-        return None, "Subjek tidak boleh kosong."
+    subjek = samakan_subjek(subjek)
+    if subjek not in DAFTAR_SUBJEK:
+        return None, "Pilih subjek: " + " atau ".join(DAFTAR_SUBJEK) + "."
     try:
         tahun = int(tahun_teks)
     except ValueError:
@@ -272,7 +295,7 @@ class DialogBuku:
 
         self.v_judul = tk.StringVar(value=str(awal.get("judul", "")))
         self.v_penulis = tk.StringVar(value=str(awal.get("penulis", "")))
-        self.v_subjek = tk.StringVar(value=str(awal.get("subjek", "")))
+        self.v_subjek = tk.StringVar(value=samakan_subjek(awal.get("subjek") or DAFTAR_SUBJEK[0]))
         self.v_tahun = tk.StringVar(value=str(awal.get("tahun_terbit", "")))
 
         isi = tk.Frame(top, bg=SURFACE)
@@ -289,7 +312,7 @@ class DialogBuku:
 
         tk.Label(isi, text="Subjek", font=app.f_small, fg=MUTED, bg=SURFACE).pack(anchor="w", pady=(14, 4))
         self.e_subjek = ttk.Combobox(isi, textvariable=self.v_subjek, values=list(daftar_subjek),
-                                     font=app.f_body)
+                                     state="readonly", font=app.f_body)
         self.e_subjek.pack(fill="x", ipady=4)
 
         self.e_tahun = self._kolom(isi, "Tahun terbit", self.v_tahun)
@@ -615,9 +638,8 @@ class AplikasiPerpustakaan:
 
     # ----------------------------------------------------------- data tampil
     def _daftar_subjek(self):
-        # BACKEND: semua_buku()
-        subjek = {b.subjek for b in self.perpus.semua_buku() if b.subjek}
-        return sorted(subjek, key=str.lower)
+        # Subjek bukan teks bebas: hanya pilihan tetap dari models.py.
+        return list(DAFTAR_SUBJEK)
 
     def _data_tampil(self):
         # BACKEND: cari_by_judul() untuk pencarian, semua_buku() untuk daftar lengkap
@@ -626,7 +648,7 @@ class AplikasiPerpustakaan:
         else:
             sumber = list(self.perpus.semua_buku())
         if self.filter_subjek != SEMUA_SUBJEK:
-            sumber = [b for b in sumber if b.subjek == self.filter_subjek]
+            sumber = [b for b in sumber if samakan_subjek(b.subjek) == self.filter_subjek]
         return sumber
 
     # --------------------------------------------------------------- render
@@ -702,7 +724,7 @@ class AplikasiPerpustakaan:
 
         self._teks_sel(baris, "penulis", bg, buku.penulis, INK)
         self._teks_sel(baris, "id", bg, format_id(buku.id), MUTED)
-        self._teks_sel(baris, "subjek", bg, buku.subjek, INK)
+        self._teks_sel(baris, "subjek", bg, samakan_subjek(buku.subjek), INK)
         self._teks_sel(baris, "tahun", bg, buku.tahun_terbit, INK)
 
         sel = self._sel(baris, "aksi", bg, TINGGI_BARIS)
