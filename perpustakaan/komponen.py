@@ -629,8 +629,11 @@ class DialogForm:
     saat_simpan : fungsi(data) -> (berhasil, pesan). Kalau berhasil, dialog ditutup.
     """
 
-    def __init__(self, app, judul, medan, validasi, saat_simpan, keterangan="", teks_simpan="Simpan"):
+    def __init__(self, app, judul, medan, validasi, saat_simpan, keterangan="", teks_simpan="Simpan",
+                 tombol_bantu=None):
         self.app = app
+        self.tertutup = False
+        self.sibuk = False
         self.validasi = validasi
         self.saat_simpan = saat_simpan
         f = app.f
@@ -664,6 +667,12 @@ class DialogForm:
             if pertama is None:
                 pertama = isian
 
+        if tombol_bantu:
+            teks_bantu, perintah_bantu = tombol_bantu
+            TombolBulat(isi, teks_bantu, command=lambda: perintah_bantu(self), font=f.small, tinggi=36,
+                        radius=8, bg=PRIMARY_SOFT, fg=PRIMARY, hover="#E4D9FB",
+                        latar=SURFACE).pack(anchor="w", pady=(16, 0))
+
         self.lbl_error = tk.Label(isi, text="", font=f.small, fg=DANGER, bg=SURFACE,
                                   wraplength=400, justify="left")
         self.lbl_error.pack(anchor="w", pady=(12, 0))
@@ -693,18 +702,23 @@ class DialogForm:
         if pertama is not None:
             pertama.focus_set()
 
+    def tampil_pesan(self, teks, galat=True):
+        """Pesan di bawah formulir: merah untuk galat, hijau untuk info."""
+        self.lbl_error.configure(text=teks, fg=DANGER if galat else SUCCESS)
+
     def _kirim(self):
         data, pesan = self.validasi({k: v.get() for k, v in self.vars.items()})
         if data is None:
-            self.lbl_error.configure(text=pesan)
+            self.tampil_pesan(pesan)
             return
         berhasil, pesan = self.saat_simpan(data)
         if berhasil:
             self.tutup()
         else:
-            self.lbl_error.configure(text=pesan)
+            self.tampil_pesan(pesan)
 
     def tutup(self):
+        self.tertutup = True
         try:
             self.top.grab_release()
         except tk.TclError:

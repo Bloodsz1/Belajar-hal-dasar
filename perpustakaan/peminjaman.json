@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "id_buku": 6,
+        "id_anggota": 1,
+        "tgl_pinjam": "2026-11-09",
+        "jatuh_tempo": "2026-11-11",
+        "tgl_kembali": null
+    },
+    {
+        "id": 2,
+        "id_buku": 8,
+        "id_anggota": 2,
+        "tgl_pinjam": "2026-11-09",
+        "jatuh_tempo": "2026-11-11",
+        "tgl_kembali": null
+    }
+]

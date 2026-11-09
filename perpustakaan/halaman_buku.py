@@ -1,9 +1,12 @@
 """halaman_buku.py - Halaman Perpustakaan: daftar buku (tambah, edit, hapus, cari, filter)."""
 
+import queue
+import threading
 import tkinter as tk
 from datetime import date
 from tkinter import messagebox
 
+import info_buku
 from komponen import (INK, DialogForm, Halaman, Lencana, TabelKartu, inisial, warna_avatar)
 from models import DAFTAR_SUBJEK, Buku
 from util import format_id, samakan_subjek
@@ -113,7 +116,8 @@ class HalamanBuku(Halaman):
 
     def tambah(self):
         DialogForm(self.app, "Tambah Buku", self._medan(), self._validasi, self._simpan_baru,
-                   keterangan="ID buku dibuat otomatis.")
+                   keterangan="ID buku dibuat otomatis. Ketik judul lalu klik “Isi otomatis”.",
+                   tombol_bantu=("✦  Isi otomatis dari judul", self._isi_otomatis))
 
     def _edit(self, buku):
         awal = {"judul": buku.judul, "penulis": buku.penulis, "subjek": buku.subjek,
@@ -179,3 +183,47 @@ class HalamanBuku(Halaman):
         if dilewati:
             pesan += f" {dilewati} dilewati karena sedang dipinjam."
         self.app.toast(pesan)
+
+    # ------------------------------------------------- isi otomatis (API + LLM)
+    def _isi_otomatis(self, dialog):
+        """Mencari penulis/tahun/subjek dari judul. Berjalan di thread supaya jendela tidak membeku."""
+        if dialog.sibuk:
+            return
+        judul = dialog.vars["judul"].get()
+        if len(judul.strip()) < 2:
+            dialog.tampil_pesan("Ketik judul buku dulu (minimal 2 huruf).")
+            return
+        dialog.sibuk = True
+        dialog.tampil_pesan("Mencari info buku…", galat=False)
+        kunci = info_buku.muat_kunci(self.layanan.folder)
+        antrean = queue.Queue()
+
+        def kerja():
+            try:
+                antrean.put(info_buku.cari_info_buku(judul, kunci))
+            except Exception as error:  # jaga-jaga: thread tidak boleh mati diam-diam
+                antrean.put((None, f"Terjadi galat tak terduga: {error}"))
+
+        threading.Thread(target=kerja, daemon=True).start()
+        self._tunggu_hasil(dialog, antrean)
+
+    def _tunggu_hasil(self, dialog, antrean):
+        # Tkinter hanya boleh disentuh dari thread utama, jadi hasil diambil lewat antrean.
+        try:
+            hasil, pesan = antrean.get_nowait()
+        except queue.Empty:
+            self.app.root.after(150, lambda: self._tunggu_hasil(dialog, antrean))
+            return
+        dialog.sibuk = False
+        if dialog.tertutup:
+            return
+        if hasil is None:
+            dialog.tampil_pesan(pesan)
+            return
+        dialog.vars["judul"].set(hasil["judul"])
+        dialog.vars["penulis"].set(hasil["penulis"])
+        if hasil["tahun"]:
+            dialog.vars["tahun"].set(str(hasil["tahun"]))
+        if hasil["subjek"] in DAFTAR_SUBJEK:
+            dialog.vars["subjek"].set(hasil["subjek"])
+        dialog.tampil_pesan(pesan, galat=not hasil["terverifikasi"])

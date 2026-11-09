@@ -1,3 +1,17 @@
+"""gui.py - Kerangka aplikasi Pustaka: sidebar, kotak cari, dan pergantian halaman.
+
+Jalankan file ini untuk membuka aplikasi:  python gui.py
+
+Susunan file:
+  models.py        backend buku (milikmu)            anggota.py     backend anggota
+  peminjaman.py    backend peminjaman & denda        pengaturan.py  backend pengaturan
+  layanan.py       menyatukan semua backend + aturan lintas data
+  laporan.py       statistik & ekspor CSV            util.py, penyimpanan.py  fungsi bantu
+  komponen.py      tombol, tabel, dialog (tampilan bersama)
+  halaman_*.py     satu file untuk tiap menu di sidebar
+Setiap halaman memberi tanda  # BACKEND:  di baris yang memanggil backend.
+"""
+
 import sys
 import tkinter as tk
 from pathlib import Path

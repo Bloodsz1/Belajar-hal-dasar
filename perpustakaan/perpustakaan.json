@@ -22,9 +22,9 @@
     },
     {
         "id": 5,
-        "judul": "komet",
-        "penulis": "tere liye",
-        "subjek": "fiksi",
+        "judul": "Komet",
+        "penulis": "Tere liye",
+        "subjek": "Fiksi",
         "tahun_terbit": 2017
     },
     {
@@ -33,5 +33,40 @@
         "penulis": "Ucup",
         "subjek": "Fiksi",
         "tahun_terbit": 2021
+    },
+    {
+        "id": 7,
+        "judul": "Filosofi teras",
+        "penulis": "KIm jong un",
+        "subjek": "Non-fiksi",
+        "tahun_terbit": 2016
+    },
+    {
+        "id": 8,
+        "judul": "Cara membuat pentol",
+        "penulis": "Ucup",
+        "subjek": "Non-fiksi",
+        "tahun_terbit": 1945
+    },
+    {
+        "id": 9,
+        "judul": "Psycology of money",
+        "penulis": "Morgan Husel",
+        "subjek": "Non-fiksi",
+        "tahun_terbit": 2019
+    },
+    {
+        "id": 10,
+        "judul": "La Peste",
+        "penulis": "Albert Camus",
+        "subjek": "Fiksi",
+        "tahun_terbit": 1942
+    },
+    {
+        "id": 11,
+        "judul": "Laskar Pelangi",
+        "penulis": "Andrea Hirata",
+        "subjek": "Fiksi",
+        "tahun_terbit": 2005
     }
 ]
