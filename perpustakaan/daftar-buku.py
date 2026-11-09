@@ -117,7 +117,7 @@ def edit_buku(perpustakaan):
             print("Masukkan nomor yang tepat!")
             return False
     except ValueError:
-        print("Harap masukkan nomor dalam bentuk angka!")
+        print("masukkan nomor dalam bentuk angka")
         return False
 
 
@@ -177,3 +177,4 @@ if __name__ == "__main__":
         main()
     except (KeyboardInterrupt, EOFError):
         print("\nProgram dihentikan.")
+        print ("Terima kasih telah menggunakan program perpustakaan!")
